@@ -40,6 +40,15 @@ const sendMailCategoryWise = async (data, eventName, DataDirectoryPath, attachme
     });
 };
 
+// CSV READING
+// data.forEach((e) => {
+//     const results = [];
+//     fs.createReadStream(e.FileName)
+//         .pipe(csv())
+//         .on('data', (e) => results.push(e))
+//         .on('end', () => sendMailCategoryWise(results, e.EventName, e.DataDirectoryPath, 'pdf'));
+// });
+
 /**
  * @param {Data[]} data
  */
@@ -114,13 +123,3 @@ async function csvSendIndividual() {
 }
 
 csvSendIndividual();
-
-// CSV READING
-// data.forEach((e) => {
-//     const results = [];
-//     fs.createReadStream(e.FileName)
-//         .pipe(csv())
-//         .on('data', (e) => results.push(e))
-//         .on('end', () => sendMailCategoryWise(results, e.EventName, e.DataDirectoryPath, 'pdf'));
-// });
-//await sendNoReplyMail(email, subject, html, attachment);
