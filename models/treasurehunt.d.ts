@@ -9,4 +9,5 @@ export interface Data {
     EventName: string;
     FileName: string;
     DataDirectoryPath: string;
+    data: TreasureHunt[];
 }

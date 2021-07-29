@@ -1,6 +1,15 @@
 require('dotenv').config();
 require('colors');
+
 const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GOOGLE_USER,
+        pass: process.env.GOOGLE_PWD,
+    },
+});
 
 /**
  * Sends a no reply mail
@@ -10,13 +19,7 @@ const nodemailer = require('nodemailer');
  * @param {Array} attachments [{filename: 'token.json',path: 'ATTENDO-TRIAL/token.json'}]
  */
 async function sendNoReplyMail(email, subject, message, attachments) {
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.GOOGLE_USER,
-            pass: process.env.GOOGLE_PWD,
-        },
-    });
+    console.log(`${email}: Pending`.bgMagenta.bold);
 
     const mailOptions = {
         from: '"DSC MBCET" <dscmbcet@gmail.com>',
