@@ -1,4 +1,4 @@
-# mail-auto-mailer
+# Auto Mailer
 
 Parses data in csv, matches it to corresponding pdf and sends mail to people ( Certificate AUTOMATION )
 
