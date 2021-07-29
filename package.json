@@ -1,0 +1,25 @@
+{
+  "name": "mail-auto-mailer",
+  "version": "1.0.0",
+  "description": "Sends mail (Certificate generation)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dscmbcet/mail-auto-mailer.git"
+  },
+  "author": "MAK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dscmbcet/mail-auto-mailer/issues"
+  },
+  "homepage": "https://github.com/dscmbcet/mail-auto-mailer#readme",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "dotenv": "^10.0.0",
+    "nodemailer": "^6.6.3",
+    "colors": "^1.4.0"
+  }
+}
