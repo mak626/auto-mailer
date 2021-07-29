@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
  * @param {String} email
  * @param {String} subject
  * @param {String} message HTML
- * @param {Array} attachments [{filename: 'token.json',path: 'ATTENDO-TRIAL/token.json'}]
+ * @param {Array} attachments [{filename: 'NAME.pdf',path: 'Data/Certificate/NAME.pdf'}]
  * @param {number} id
  */
 async function sendNoReplyMail(email, subject, message, attachments, id) {
