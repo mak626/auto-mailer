@@ -20,7 +20,6 @@ const transporter = nodemailer.createTransport({
  */
 async function sendNoReplyMail(email, subject, message, attachments) {
     console.log(`${email}: Pending`.bgMagenta.bold);
-
     const mailOptions = {
         from: '"DSC MBCET" <dscmbcet@gmail.com>',
         to: email,

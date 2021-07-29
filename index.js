@@ -10,7 +10,6 @@ const subject = `Certificates for Le Début`;
 
 /** @type {Data[]} */
 var data = [{ EventName: 'Treasure Hunt' }, { EventName: 'Best Performed Team' }, { EventName: 'Participants' }];
-
 data = data.map((e) => {
     return {
         EventName: e.EventName,
@@ -20,7 +19,6 @@ data = data.map((e) => {
 });
 
 /**
- *
  * @param {TreasureHunt[]} data
  * @param {string} eventName
  * @param {string} DataDirectoryPath
