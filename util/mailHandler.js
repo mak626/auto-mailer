@@ -2,9 +2,11 @@ require('dotenv').config();
 require('colors');
 
 const nodemailer = require('nodemailer');
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
+    pool: true,
+    maxConnections: 10,
+    maxMessages: 20,
     auth: {
         user: process.env.GOOGLE_USER,
         pass: process.env.GOOGLE_PWD,
@@ -12,14 +14,13 @@ const transporter = nodemailer.createTransport({
 });
 
 /**
- * Sends a no reply mail
  * @param {String} email
  * @param {String} subject
  * @param {String} message HTML
  * @param {Array} attachments [{filename: 'token.json',path: 'ATTENDO-TRIAL/token.json'}]
+ * @param {number} id
  */
-async function sendNoReplyMail(email, subject, message, attachments) {
-    console.log(`${email}: Pending`.bgMagenta.bold);
+async function sendNoReplyMail(email, subject, message, attachments, id) {
     const mailOptions = {
         from: '"DSC MBCET" <dscmbcet@gmail.com>',
         to: email,
@@ -28,13 +29,13 @@ async function sendNoReplyMail(email, subject, message, attachments) {
         attachments,
     };
 
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
         transporter.sendMail(mailOptions, (error) => {
             if (error) {
-                console.error(`${email}: Error Occured While Sending Mail: ${error.message}`.red);
-                reject(error);
+                console.error(`${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
+                resolve();
             } else {
-                console.log(`${email}: Mail Has Been Send`.green.bold);
+                console.log(`${id}: Mail Has Been Send:`.green.bold, email);
                 resolve();
             }
         });

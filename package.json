@@ -1,10 +1,11 @@
 {
   "name": "mail-auto-mailer",
-  "version": "1.0.0",
-  "description": "Sends mail (Certificate generation)",
+  "version": "1.1.0",
+  "description": "Sends mass auto mail (Certificate generation)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "send_individual": "node send_individual.js",
+    "send_category_wise": "node send_category_wise.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,11 @@
     "dotenv": "^10.0.0",
     "nodemailer": "^6.6.3",
     "colors": "^1.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.23.4"
   }
 }
