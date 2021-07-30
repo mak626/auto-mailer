@@ -9,24 +9,20 @@ const { sendNoReplyMail } = require('./util/mailHandler');
 /** @typedef {import('./models/model').Person} Person */
 
 async function csvParse() {
-    const html = fs.readFileSync('./content.html', 'utf-8', () => {});
+    const html = fs.readFileSync('./temp/general.html', 'utf-8', () => {});
 
     const attachment = [
         {
-            filename: 'h1.png',
-            path: './h1.png',
-            cid: 'h1',
-        },
-        {
             filename: 'logo.png',
-            path: './logo.png',
+            path: './temp/logo.png',
             cid: 'logo',
         },
     ];
 
     let id = 1;
     const toLeft = [];
-    toLeft.push(sendNoReplyMail(devMail, 'Rejection Mail New Template', html.replace('<#NAME>', 'Backend'), attachment, id++));
+    toLeft.push(sendNoReplyMail(devMail, 'Le Debut', html.replace('<#NAME>', 'Backend'), attachment, id++));
+
     // await new Promise((resolve) =>
     //     fs
     //         .createReadStream('./batch.csv')
