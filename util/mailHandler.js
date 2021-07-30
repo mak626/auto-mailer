@@ -3,9 +3,9 @@ require('dotenv').config();
 require('colors');
 const nodemailer = require('nodemailer');
 
-const token = require('../tokens/mail.json');
-const { client_id, client_secret } = require('../tokens/client.json').web;
-const client_email = process.env.GOOGLE_USER;
+const token = require('../assets/tokens/mail.json');
+const { client_id, client_secret } = require('../assets/tokens/client.json').web;
+const { clientEmail, clientName } = require('./constants');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
         type: 'OAuth2',
         clientId: client_id,
         clientSecret: client_secret,
-        user: client_email,
+        user: clientEmail,
         refreshToken: token.refresh_token,
         accessToken: token.access_token,
     },
@@ -41,7 +41,7 @@ transporter.on('token', (newToken) => {
  */
 async function sendNoReplyMail(email, subject, message, attachments, id) {
     const mailOptions = {
-        from: `"DSC MBCET" <${client_email}>`,
+        from: `"${clientName}" <${clientEmail}>`,
         to: email,
         subject,
         html: message,
