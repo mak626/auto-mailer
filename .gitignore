@@ -6,3 +6,4 @@ assets/coreteam
 *.csv
 *.png
 tokens
+.log

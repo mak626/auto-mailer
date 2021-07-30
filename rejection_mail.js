@@ -13,10 +13,12 @@ async function csvParse() {
 
     const attachment = [
         {
+            filename: 'dsc.png',
             path: './logo.png',
             cid: 'logo',
         },
         {
+            filename: 'dsc-1.png',
             path: './gdsc.png',
             cid: 'gdsc',
         },
@@ -42,6 +44,6 @@ async function csvParse() {
 
 (async () => {
     await csvParse();
-    console.log('Email Sending Done'.magenta.bold);
+    console.log('\nEmail Sending Done'.magenta.bold);
     process.exit(0);
 })();

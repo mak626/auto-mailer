@@ -1,11 +1,16 @@
 /* eslint-disable camelcase */
 require('dotenv').config();
 require('colors');
+const fs = require('fs');
 const nodemailer = require('nodemailer');
+
+/** @typedef {import('nodemailer/lib/mailer').Attachment} Attachment */
 
 const token = require('../assets/tokens/mail.json');
 const { client_id, client_secret } = require('../assets/tokens/client.json').web;
 const { clientEmail, clientName } = require('./constants');
+
+const notSend = fs.createWriteStream('error_mails.log', { flags: 'a' });
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -30,22 +35,28 @@ const transporter = nodemailer.createTransport({
 
 transporter.on('token', (newToken) => {
     console.log('A new access token was generated'.yellow.bold);
-    const fs = require('fs');
     const data = { ...token, access_token: newToken.accessToken, expires_in: newToken.expires };
     fs.writeFileSync('./assets/tokens/mail.json', JSON.stringify(data, null, 2));
 });
 
 /**
- * @param {String} email
+ * @param {string|string[]} email
  * @param {String} subject
- * @param {String} message HTML
- * @param {Array} attachments [{filename: 'NAME.pdf',path: 'Data/Certificate/NAME.pdf'}]
+ * @param {String} message HTML/Text
+ * @param {Attachment[]} attachments [{filename: 'NAME.pdf',path: 'Data/Certificate/NAME.pdf'}]
  * @param {number} id
+ * @param {string|string[]=} ccMails
+ * @param {string|string[]=} bccMails
  */
-async function sendNoReplyMail(email, subject, message, attachments, id) {
+async function sendNoReplyMail(email, subject, message, attachments, id, ccMails, bccMails) {
     const mailOptions = {
-        from: `"${clientName}" <${clientEmail}>`,
+        from: {
+            name: clientName,
+            address: clientEmail,
+        },
         to: email,
+        cc: ccMails,
+        bcc: bccMails,
         subject,
         html: message,
         attachments,
@@ -54,7 +65,8 @@ async function sendNoReplyMail(email, subject, message, attachments, id) {
     await new Promise((resolve) => {
         transporter.sendMail(mailOptions, (error) => {
             if (error) {
-                console.error(`${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
+                console.error(`\n${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
+                notSend.write(`[${new Date().toLocaleTimeString()}] ${id}: Sending Mail: ${email}, ERROR: ${error.message}\n`);
                 resolve();
             } else {
                 console.log(`${id}: Mail Has Been Send:`.green.bold, email);
