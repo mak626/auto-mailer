@@ -1,9 +1,8 @@
-require('dotenv').config();
 require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
 const { sendNoReplyMail } = require('./util/mailHandler');
-const devEmail = process.env.DEV_MAIL;
+const { devMail, backendMail } = require('./util/constants');
 
 /** @typedef {import('./models/model').Event} Event */
 /** @typedef {import('./models/model').Person} Person */
@@ -32,8 +31,15 @@ const sendMailCategoryWiseHandler = async (personData, eventName, DataDirectoryP
             console.log(`File For ${name} : ${email} Not Found`.yellow);
         } else {
             const html = fs.readFileSync('./content.html', 'utf-8', () => {});
-            const attachment = [{ filename: `Le Début Participation Certificate.${attachmentFileType}`, path: tempPath }];
-            left.push(sendNoReplyMail(devEmail, subject, html, attachment, id));
+            const attachment = [
+                { filename: `Le Début Participation Certificate.${attachmentFileType}`, path: tempPath },
+                {
+                    filename: 'Logo.png',
+                    path: './assets/mail/Logo.svg',
+                    cid: 'logo',
+                },
+            ];
+            left.push(sendNoReplyMail(devMail, subject, html, attachment, id));
             // left.push(sendNoReplyMail(email, subject, html, attachment, id));
         }
     }

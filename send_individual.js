@@ -3,7 +3,7 @@ require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
 const { sendNoReplyMail } = require('./util/mailHandler');
-const devEmail = process.env.DEV_MAIL;
+const { devMail, backendMail } = require('./util/constants');
 
 /** @typedef {import('./models/model').Event} Event */
 
@@ -64,7 +64,7 @@ const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
             });
         }
 
-        left.push(sendNoReplyMail(devEmail, subject, html, attachment, id));
+        left.push(sendNoReplyMail(devMail, subject, html, attachment, id));
         // left.push(sendNoReplyMail(email, subject, html, attachment, id));
     }
 
