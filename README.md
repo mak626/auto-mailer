@@ -10,6 +10,7 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 # .env CONIFIG
 
+-   `CLIENT_NAME`=serverEmailUsername
 -   `GOOGLE_USER`=serverEmailID
 -   `GOOGLE_PWD`=serverEmailPassword
 -   `DEV_MAIL`=developerEmail
