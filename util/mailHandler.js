@@ -62,16 +62,16 @@ async function sendNoReplyMail(email, subject, message, attachments, id, ccMails
         attachments,
     };
 
-    console.log(`${id}: Sending Mail To:`.blue.bold, email);
+    console.log(`🔹 ${id}: Sending Mail To:`.blue.bold, email);
 
     await new Promise((resolve) => {
         transporter.sendMail(mailOptions, (error) => {
             if (error) {
-                console.error(`\n${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
+                console.error(`\n❌ ${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
                 notSend.write(`[${new Date().toLocaleTimeString()}] ${id}: Sending Mail: ${email}, ERROR: ${error.message}\n`);
                 resolve();
             } else {
-                console.log(`${id}: Mail Has Been Send:`.green.bold, email);
+                console.log(`✔ ${id}: Mail Has Been Send:`.green.bold, email);
                 resolve();
             }
         });
