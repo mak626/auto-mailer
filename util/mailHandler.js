@@ -20,6 +20,7 @@ const transporter = nodemailer.createTransport({
         user: clientEmail,
         refreshToken: token.refresh_token,
         accessToken: token.access_token,
+        expires: token.expires_in,
     },
     // auth: {
     //     user: process.env.GOOGLE_USER,
@@ -29,7 +30,11 @@ const transporter = nodemailer.createTransport({
 
 transporter.on('token', (newToken) => {
     console.log('A new access token was generated'.red);
-    console.log(newToken);
+    console.log(JSON.stringify(newToken, null, 1));
+});
+
+transporter.on('idle', () => {
+    console.log('bored');
 });
 
 /**
