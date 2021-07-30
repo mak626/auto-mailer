@@ -8,7 +8,7 @@ const { sendNoReplyMail } = require('./util/mailHandler');
 /** @typedef {import('./models/model').Event} Event */
 /** @typedef {import('./models/model').Person} Person */
 
-async function csvParserSendCategory() {
+async function csvParse() {
     const html = fs.readFileSync('./content.html', 'utf-8', () => {});
 
     const attachment = [
@@ -43,7 +43,7 @@ async function csvParserSendCategory() {
 }
 
 (async () => {
-    await csvParserSendCategory();
+    await csvParse();
     console.log('Email Sending Done'.magenta.bold);
     process.exit(0);
 })();
