@@ -9,9 +9,3 @@ export interface Event {
     DataDirectoryPath: string;
     data: Person[];
 }
-
-export interface Attachement {
-    filename: ?string;
-    path: ?string;
-    cid: ?string;
-}

@@ -1,11 +1,11 @@
 const fs = require('fs');
 
-const filePath = './data/Certificates/Participants';
-const file = fs.readdirSync(filePath);
+const fileDirPath = './data/Certificates/Participants';
 
-file.forEach((eFile) => {
+const files = fs.readdirSync(fileDirPath);
+files.forEach((eFile) => {
     const oldString = '- Le Debut';
     const newFile = eFile.replace(oldString, '');
 
-    fs.renameSync(`${filePath}/${eFile}`, `${filePath}/${newFile}`);
+    fs.renameSync(`${fileDirPath}/${eFile}`, `${fileDirPath}/${newFile}`);
 });

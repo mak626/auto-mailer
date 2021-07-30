@@ -9,9 +9,7 @@ const nodemailer = require('nodemailer');
 const token = require('../assets/tokens/mail.json');
 const { client_id, client_secret } = require('../assets/tokens/client.json').web;
 const { clientEmail, clientName } = require('./constants');
-
 const notSend = fs.createWriteStream('error_mails.log', { flags: 'a' });
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     pool: true,
