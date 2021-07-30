@@ -5,3 +5,4 @@ data/*
 assets/coreteam
 *.csv
 *.png
+tokens
