@@ -3,6 +3,7 @@ require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
 const { sendNoReplyMail } = require('./util/mailHandler');
+// eslint-disable-next-line no-unused-vars
 const { devMail, backendMail } = require('./util/constants');
 
 /** @typedef {import('./models/model').Event} Event */
