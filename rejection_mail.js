@@ -13,25 +13,23 @@ async function csvParse() {
 
     const attachment = [
         {
-            filename: 'h1.png',
-            path: './h1.png',
-            cid: 'h1',
-        },
-        {
-            filename: 'logo.png',
             path: './logo.png',
             cid: 'logo',
+        },
+        {
+            path: './gdsc.png',
+            cid: 'gdsc',
         },
     ];
 
     let id = 1;
     const toLeft = [];
+    toLeft.push(sendNoReplyMail(devMail, 'R21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
     await new Promise((resolve) =>
         fs
             .createReadStream('./batch.csv')
             .pipe(csv())
             .on('data', (e) => {
-                toLeft.push(sendNoReplyMail(devMail, 'R21 | Final Phase Results', html.replace('<#NAME>', e.NAME), attachment, id++));
                 // toLeft.push(sendNoReplyMail(e.MAIL, 'R’21 | Final Phase Results', html.replace('<#NAME>', e.NAME), attachment, id++));
             })
             .on('end', () => {

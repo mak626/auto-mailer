@@ -29,12 +29,10 @@ const transporter = nodemailer.createTransport({
 });
 
 transporter.on('token', (newToken) => {
-    console.log('A new access token was generated'.red);
-    console.log(JSON.stringify(newToken, null, 1));
-});
-
-transporter.on('idle', () => {
-    console.log('bored');
+    console.log('A new access token was generated'.yellow.bold);
+    const fs = require('fs');
+    const data = { ...token, access_token: newToken.accessToken, expires_in: newToken.expires };
+    fs.writeFileSync('./assets/tokens/mail.json', JSON.stringify(data, null, 2));
 });
 
 /**
