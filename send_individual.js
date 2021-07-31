@@ -1,3 +1,5 @@
+/* eslint-disable prefer-spread */
+/* eslint-disable no-undef */
 require('dotenv').config();
 require('colors');
 const csv = require('csv-parser');
@@ -25,8 +27,8 @@ const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
 
     for (const e of participants.data) {
         const id = ++index;
-        const name = e.NAME.trim();
-        const email = e.MAIL.trim();
+        const name = e.NAME;
+        const email = e.MAIL;
 
         console.log(`${id}: Sending mail`.blue.bold, `${name} : ${e.MAIL}`);
 
@@ -74,20 +76,32 @@ const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
 
 async function csvParserSendIndividual() {
     /** @type {Event[]} */
-    let data = [{ EventName: 'Treasure Hunt' }, { EventName: 'Best Performed Team' }, { EventName: 'Participants' }];
-
-    data = data.map((e) => ({
-        EventName: e.EventName,
-        FileName: `./data/CSV/${e.EventName}.csv`,
-        DataDirectoryPath: `./data/Certificates/${e.EventName}`,
-    }));
+    let data = await new Promise((resolve) => {
+        const temp = [];
+        fs.createReadStream('./data/events.csv')
+            .pipe(csv())
+            .on('data', (e) => {
+                const EventName = e.EventName.trim();
+                temp.push({
+                    EventName,
+                    FileName: `./data/CSV/${EventName}.csv`,
+                    DataDirectoryPath: `./data/Certificates/${EventName}`,
+                });
+            })
+            .on('end', () => resolve(temp));
+    });
 
     data = data.map(async (eventObject) => {
         const results = [];
         const result = new Promise((resolve) => {
             fs.createReadStream(eventObject.FileName)
                 .pipe(csv())
-                .on('data', (e) => results.push(e))
+                .on('data', (e) =>
+                    results.push({
+                        NAME: e.NAME.trim(),
+                        MAIL: e.MAIL.trim(),
+                    })
+                )
                 .on('end', () => resolve(results));
         });
         return {
@@ -95,9 +109,12 @@ async function csvParserSendIndividual() {
             data: await result,
         };
     });
-    data = await Promise.all(data);
 
-    await sendMailInviduallyHandler(data, 'pdf');
+    data = await Promise.all(data);
+    console.log(JSON.stringify(data, null, 2));
+
+    const attachmentFileType = 'pdf';
+    await sendMailInviduallyHandler(data, attachmentFileType);
 }
 
 (async () => {
