@@ -40,6 +40,8 @@ transporter.on('token', (newToken) => {
     generated = true;
 });
 
+const MailtokenVerifed = transporter.verify();
+
 /**
  * @param {string|string[]} email
  * @param {String} subject
@@ -79,4 +81,4 @@ async function sendNoReplyMail(email, subject, message, attachments, id, ccMails
     });
 }
 
-module.exports = { sendNoReplyMail };
+module.exports = { sendNoReplyMail, MailtokenVerifed };

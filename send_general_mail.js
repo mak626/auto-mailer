@@ -2,7 +2,7 @@ require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
 // eslint-disable-next-line no-unused-vars
-const { devMail, backendMail } = require('./util/constants');
+const { devMail, backendMail, MailtokenVerifed } = require('./util/constants');
 const { sendNoReplyMail } = require('./util/mailHandler');
 
 /** @typedef {import('./models/model').Event} Event */
@@ -40,6 +40,7 @@ async function csvParse() {
 }
 
 (async () => {
+    await MailtokenVerifed;
     await csvParse();
     console.log('Email Sending Done'.magenta.bold);
     process.exit(0);

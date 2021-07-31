@@ -3,7 +3,7 @@ const csv = require('csv-parser');
 const fs = require('fs');
 // eslint-disable-next-line no-unused-vars
 const { devMail, backendMail } = require('./util/constants');
-const { sendNoReplyMail } = require('./util/mailHandler');
+const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 
 /** @typedef {import('./models/model').Event} Event */
 /** @typedef {import('./models/model').Person} Person */
@@ -27,6 +27,9 @@ async function csvParse() {
     let id = 1;
     const toLeft = [];
     toLeft.push(sendNoReplyMail(devMail, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
+    toLeft.push(sendNoReplyMail(devMail, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
+    toLeft.push(sendNoReplyMail(devMail, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
+    toLeft.push(sendNoReplyMail(devMail, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
     await new Promise((resolve) =>
         fs
             .createReadStream('./temp/batch.csv')
@@ -43,6 +46,7 @@ async function csvParse() {
 }
 
 (async () => {
+    await MailtokenVerifed;
     await csvParse();
     console.log('\nEmail Sending Done'.magenta.bold);
     process.exit(0);

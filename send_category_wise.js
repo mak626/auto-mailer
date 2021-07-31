@@ -1,7 +1,7 @@
 require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
-const { sendNoReplyMail } = require('./util/mailHandler');
+const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 // eslint-disable-next-line no-unused-vars
 const { devMail, backendMail } = require('./util/constants');
 
@@ -73,6 +73,7 @@ async function csvParserSendCategory() {
 }
 
 (async () => {
+    await MailtokenVerifed;
     await csvParserSendCategory();
     console.log('Email Sending Done'.magenta.bold);
     process.exit(0);
