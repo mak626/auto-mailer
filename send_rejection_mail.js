@@ -26,7 +26,7 @@ async function csvParse() {
 
     let id = 1;
     const toLeft = [];
-    toLeft.push(sendNoReplyMail(undefined, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
+    toLeft.push(sendNoReplyMail(devMail, 'R’21 | Final Phase Results', html.replace('<#NAME>', 'Backend'), attachment, id++));
     await new Promise((resolve) =>
         fs
             .createReadStream('./temp/batch.csv')

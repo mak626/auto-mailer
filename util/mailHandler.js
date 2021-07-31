@@ -10,6 +10,8 @@ const token = require('../assets/tokens/mail.json');
 const { client_id, client_secret } = require('../assets/tokens/client.json').web;
 const { clientEmail, clientName } = require('./constants');
 const notSend = fs.createWriteStream('error_mails.log', { flags: 'a' });
+let generated = false;
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     pool: true,
@@ -32,9 +34,10 @@ const transporter = nodemailer.createTransport({
 });
 
 transporter.on('token', (newToken) => {
-    console.log('A new access token was generated'.yellow.bold);
+    if (!generated) console.log('A new access token was generated'.yellow.bold);
     const data = { ...token, access_token: newToken.accessToken, expires_in: newToken.expires };
     fs.writeFileSync('./assets/tokens/mail.json', JSON.stringify(data, null, 2));
+    generated = true;
 });
 
 /**
@@ -69,7 +72,7 @@ async function sendNoReplyMail(email, subject, message, attachments, id, ccMails
                 notSend.write(`[${new Date().toLocaleTimeString()}] ${id}: Sending Mail: ${email}, ERROR: ${error.message}\n`);
                 resolve();
             } else {
-                console.log(`✔ ${id}: Mail Has Been Send:`.green.bold, email);
+                console.log(`✔  ${id}: Mail Has Been Send:`.green.bold, email);
                 resolve();
             }
         });
