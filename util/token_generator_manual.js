@@ -50,7 +50,7 @@ function authorize(credentials, callback) {
     const oAuth2Client = new google.auth.OAuth2(
         client_id,
         client_secret,
-        redirect_uris[2] // localhost
+        redirect_uris[1] // localhost
     );
 
     // Check if we have previously stored a token.
