@@ -15,7 +15,7 @@ let generated = false;
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     pool: true,
-    maxConnections: 10,
+    maxConnections: 5,
     maxMessages: 20,
     secure: true,
     auth: {
