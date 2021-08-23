@@ -9,7 +9,17 @@ const juice = require('juice');
  *
  * Ensure src paths of image are absolute eg: ../temp/logo.png
  */
-const htmlParser = (htmlFilePath, attachment) => {
+const htmlParser = (htmlFilePath) => {
+    const attachment = [
+        {
+            path: './temp/logo.png',
+            cid: 'logo',
+        },
+        {
+            path: './temp/gdsc.png',
+            cid: 'gdsc',
+        },
+    ];
     const html = fs.readFileSync(htmlFilePath, 'utf-8', () => {});
     let css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8', () => {});
 
