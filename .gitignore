@@ -3,7 +3,6 @@ node_modules
 data/*
 assets/coreteam
 temp
-*.csv
 *.png
 tokens
 *.log

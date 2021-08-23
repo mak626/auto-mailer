@@ -75,7 +75,10 @@ const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
     await Promise.all(left);
 };
 
-async function csvParserSendIndividual() {
+/**
+ * @param {string} attachmentFileType
+ */
+async function csvParserSendIndividual(attachmentFileType) {
     /** @type {Event[]} */
     let data = await new Promise((resolve) => {
         const temp = [];
@@ -114,13 +117,13 @@ async function csvParserSendIndividual() {
     data = await Promise.all(data);
     console.log(JSON.stringify(data, null, 2));
 
-    const attachmentFileType = 'pdf';
     await sendMailInviduallyHandler(data, attachmentFileType);
 }
 
 (async () => {
     await MailtokenVerifed;
-    await csvParserSendIndividual();
+    const attachmentFileType = 'pdf';
+    await csvParserSendIndividual(attachmentFileType);
     console.log('Email Sending Done'.magenta.bold);
     process.exit(0);
 })();
