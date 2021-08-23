@@ -1,6 +1,5 @@
 /* eslint-disable prefer-spread */
 /* eslint-disable no-undef */
-require('dotenv').config();
 require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
