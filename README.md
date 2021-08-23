@@ -12,6 +12,10 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 # Usage
 
+#### Installation
+
+-   `npm i`
+
 #### General Mail
 
 -   Create `temp` directory in `root`
