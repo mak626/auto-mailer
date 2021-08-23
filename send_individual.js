@@ -7,6 +7,7 @@ const fs = require('fs');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 // eslint-disable-next-line no-unused-vars
 const { devMail, backendMail } = require('./util/constants');
+const { htmlParser } = require('./util/html_parser');
 
 /** @typedef {import('./models/model').Event} Event */
 
@@ -15,7 +16,7 @@ const { devMail, backendMail } = require('./util/constants');
  * @param {string} attachmentFileType
  */
 const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
-    const html = fs.readFileSync('./content.html', 'utf-8', () => {});
+    const html = htmlParser('./temp/content.html');
     const subject = 'Certificates for Le Début';
 
     const participants = eventData.find((e) => e.EventName === 'Participants');

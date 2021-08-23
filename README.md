@@ -2,15 +2,22 @@
 
 Parses data in csv, matches it to corresponding pdf and sends mail to people ( Certificate AUTOMATION )
 
-# Usage
-
--   Check sample data in `models/data-TEMPLATE` directory
--   Configure that data in `data` directory
--   Add a `content.html` in root directory for the mail message
-
 # .env CONIFIG
 
 -   `CLIENT_NAME`=serverEmailUsername
 -   `GOOGLE_USER`=serverEmailID
--   `GOOGLE_PWD`=serverEmailPassword
 -   `DEV_MAIL`=developerEmail
+-   `BACKEND`=backendEmail
+-   `LEAD_MAIL`=leadEmail
+
+# Usage
+
+#### General Mail
+
+-   Add a `content.html`,`content.css`,`images` in temp directory for the mail message.
+-   Add a `batch.css` in temp directory for list of people to sent the mail to.
+
+#### Category Mail
+
+-   Add a `content.html`,`content.css`,`images` in temp directory for the mail message.
+-   Refer `models/data-TEMPLATE` for directory structure. Do the same in `data` directory

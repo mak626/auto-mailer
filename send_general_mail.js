@@ -2,39 +2,44 @@ require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
 // eslint-disable-next-line no-unused-vars
-const { devMail, backendMail, MailtokenVerifed } = require('./util/constants');
-const { sendNoReplyMail } = require('./util/mailHandler');
+const { devMail, backendMail, leadMail } = require('./util/constants');
+const { htmlParser } = require('./util/html_parser');
+const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 
-/** @typedef {import('./models/model').Event} Event */
-/** @typedef {import('./models/model').Person} Person */
+/** @typedef {import('../models/model').Event} Event */
+/** @typedef {import('../models/model').Person} Person */
 
 async function csvParse() {
-    const html = fs.readFileSync('./temp/general.html', 'utf-8', () => {});
-
+    const html = htmlParser('./temp/content.html');
+    const subject = 'Subject Here';
     const attachment = [
         {
-            filename: 'logo.png',
+            filename: 'dsc.png',
             path: './temp/logo.png',
             cid: 'logo',
+        },
+        {
+            filename: 'dsc-1.png',
+            path: './temp/gdsc.png',
+            cid: 'gdsc',
         },
     ];
 
     let id = 1;
     const toLeft = [];
-    toLeft.push(sendNoReplyMail(devMail, 'Le Debut', html.replace('<#NAME>', 'Backend'), attachment, id++));
-
-    // await new Promise((resolve) =>
-    //     fs
-    //         .createReadStream('./batch.csv')
-    //         .pipe(csv())
-    //         .on('data', (e) => {
-    //             toLeft.push(sendNoReplyMail(devMail, 'R21 | Final Phase Results', html.replace('<#NAME>', e.NAME), attachment, id++));
-    //             // toLeft.push(sendNoReplyMail(e.MAIL, 'R’21 | Final Phase Results', html.replace('<#NAME>', e.NAME), attachment, id++));
-    //         })
-    //         .on('end', () => {
-    //             resolve();
-    //         })
-    // );
+    toLeft.push(sendNoReplyMail(devMail, subject, html.replace('<#NAME>', 'MAK'), attachment, id++));
+    // toLeft.push(sendNoReplyMail(leadMail, subject, html.replace('<#NAME>', 'Riya'), attachment, id++));
+    await new Promise((resolve) =>
+        fs
+            .createReadStream('./temp/batch.csv')
+            .pipe(csv())
+            .on('data', (e) => {
+                // toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', e.NAME), attachment, id++));
+            })
+            .on('end', () => {
+                resolve();
+            })
+    );
 
     await Promise.all(toLeft);
 }
@@ -42,6 +47,6 @@ async function csvParse() {
 (async () => {
     await MailtokenVerifed;
     await csvParse();
-    console.log('Email Sending Done'.magenta.bold);
+    console.log('\nEmail Sending Done'.magenta.bold);
     process.exit(0);
 })();
