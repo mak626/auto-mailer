@@ -1,0 +1,132 @@
+:root {
+    --font-color: #d7d7d7;
+    --font-color-bold: white;
+    --link-color: #e2a740;
+    --box-color: #3a3a3a;
+    --button-color: #fb9004;
+    --name-underline-color: #d6b274;
+    --banner-gradient-color: linear-gradient(359.25deg, #fbbc04 0.68%, #e37400 99.39%);
+}
+
+.Main {
+    font-family: 'Google Sans', 'Roboto', Ubuntu, sans-serif;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.Main .Box {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--box-color);
+}
+
+.Sender {
+    color: var(--font-color);
+    border-spacing: 0;
+    width: 100%;
+}
+
+.Sender td {
+    width: 521px;
+    padding: 22px;
+    padding-bottom: 0px;
+}
+
+.Sender h1 {
+    font-family: Ubuntu, sans-serif;
+    line-height: 40px;
+    font-size: 32px;
+    margin: 0;
+    color: var(--font-color-bold);
+}
+
+.Sender .Underline {
+    background: var(--name-underline-color);
+    width: 250px;
+    font-size: 3.5vw;
+    height: 6px;
+    display: block;
+    margin: 20px 0;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.GDSCLogo {
+    padding: 20px 0 20px 0;
+}
+
+.GDSCLogo img {
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+}
+
+.Banner {
+    padding: 20px;
+    background: var(--banner-gradient-color);
+}
+
+.Banner img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+}
+
+.TextHere {
+    padding-bottom: 5px;
+    padding: 10px 22px 22px 22px;
+}
+
+.TextHere p {
+    color: var(--font-color);
+    margin: 0.5em 0 1.2em;
+    text-align: justify;
+}
+
+.TextHere .Bold {
+    color: var(--font-color-bold);
+    font-weight: 500;
+}
+.TextHere .TopText {
+    margin: 0em 0 1em;
+}
+
+.TextHere .BottomText {
+    margin: 0.3em 0 0em;
+}
+
+.TextHere a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+.TextHere blockquote {
+    border-left: 1px solid var(--font-color);
+    padding-left: 1ex;
+}
+
+.TextHere blockquote p {
+    line-height: 2em;
+}
+
+.TextHere blockquote p span {
+    margin: 0.5em 0 1.5em;
+    font-size: 1.4rem;
+    color: var(--link-color);
+    text-align: justify;
+}
+
+.Button {
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.Button a {
+    text-decoration: none;
+    color: var(--font-color-bold);
+    background-color: var(--button-color);
+    padding: 1rem;
+    border-radius: 1rem;
+}
