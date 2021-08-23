@@ -11,7 +11,17 @@ const juice = require('juice');
  */
 const htmlParser = (htmlFilePath, attachment) => {
     const html = fs.readFileSync(htmlFilePath, 'utf-8', () => {});
-    const css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8', () => {});
+    let css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8', () => {});
+
+    // Adding css variables to inline
+    const reg = /--.*:.*;/gm;
+    const varArray = css.matchAll(reg);
+
+    for (const variable of varArray) {
+        const [name, value] = variable[0].trim().replace(';', '').split(':');
+        const regex = `var(${name.trim()})`;
+        css = css.split(regex).join(value.trim());
+    }
 
     let parsedHtml = juice.inlineContent(html, css);
 
