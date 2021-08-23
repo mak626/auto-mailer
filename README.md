@@ -16,8 +16,10 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 -   Add a `content.html`,`content.css`,`images` in temp directory for the mail message.
 -   Add a `batch.css` in temp directory for list of people to sent the mail to.
+-   Configure send_general_mail.js
 
-#### Category Mail
+#### Certificates Mail
 
 -   Add a `content.html`,`content.css`,`images` in temp directory for the mail message.
 -   Refer `models/data-TEMPLATE` for directory structure. Do the same in `data` directory
+-   Configure send_certificates_events.js
