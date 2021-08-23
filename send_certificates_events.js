@@ -1,5 +1,3 @@
-/* eslint-disable prefer-spread */
-/* eslint-disable no-undef */
 require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
