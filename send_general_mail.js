@@ -9,7 +9,7 @@ const { htmlParser } = require('./util/html_parser');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 
 const showWarning = (sendMailTo, batchFileListLocation) => {
-    if (sendMailTo.batchList) {
+    if (sendMailTo.batchListParticipants) {
         console.log(`You are about to send mails to everyone in ${batchFileListLocation}`.red.bold);
         return rl.keyInYN('Do you want to continue or abort');
     }
@@ -42,7 +42,7 @@ async function csvParse() {
         iphoneUser: false,
         coreTeam: false,
         lead: false,
-        batchList: false,
+        batchListParticipants: false, // BE CAREFUL ABOUT THIS
     };
 
     // -------------------- CONFIGURATION --------------------
@@ -63,7 +63,8 @@ async function csvParse() {
             .createReadStream(batchFileListLocation)
             .pipe(csv())
             .on('data', (e) => {
-                if (sendMailTo.batchList) toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', e.NAME), attachment, id++));
+                if (sendMailTo.batchListParticipants)
+                    toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', e.NAME), attachment, id++));
             })
             .on('end', () => {
                 resolve();
