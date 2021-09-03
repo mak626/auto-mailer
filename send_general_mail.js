@@ -63,8 +63,9 @@ async function csvParse() {
             .createReadStream(batchFileListLocation)
             .pipe(csv())
             .on('data', (e) => {
-                if (sendMailTo.batchListParticipants)
+                if (sendMailTo.batchListParticipants) {
                     toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', e.NAME), attachment, id++));
+                }
             })
             .on('end', () => {
                 resolve();
