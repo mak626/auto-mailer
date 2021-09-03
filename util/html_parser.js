@@ -23,7 +23,7 @@ const htmlParser = (htmlFilePath) => {
     const html = fs.readFileSync(htmlFilePath, 'utf-8', () => {});
     let css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8', () => {});
 
-    // Adding css variables to inline
+    // Converting css variables to inline
     const reg = /--.*:.*;/gm;
     const varArray = css.matchAll(reg);
 
@@ -33,8 +33,10 @@ const htmlParser = (htmlFilePath) => {
         css = css.split(regex).join(value.trim());
     }
 
+    // Inserting css data into html tags
     let parsedHtml = juice.inlineContent(html, css);
 
+    // Renaming paths to cid format
     attachment.forEach((e) => {
         parsedHtml = parsedHtml.replace(`.${e.path}`, `cid:${e.cid}`);
     });
