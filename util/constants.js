@@ -6,4 +6,6 @@ module.exports = {
     devMail: process.env.DEV_MAIL,
     leadMail: process.env.LEAD_MAIL,
     backendMail: process.env.BACKEND,
+    coreMail: process.env.CORE_TEAM,
+    iphoneMail: process.env.IPHONE_MAIL,
 };
