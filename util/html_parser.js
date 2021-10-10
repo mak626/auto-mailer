@@ -38,7 +38,7 @@ const htmlParser = (htmlFilePath) => {
 
     // Renaming paths to cid format
     attachment.forEach((e) => {
-        parsedHtml = parsedHtml.replace(`.${e.path}`, `cid:${e.cid}`);
+        parsedHtml = parsedHtml.replace(`${e.cid}.png`, `cid:${e.cid}`);
     });
     return parsedHtml;
 };
