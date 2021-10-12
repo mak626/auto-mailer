@@ -20,15 +20,15 @@ async function csvParse() {
     // -------------------- CONFIGURATION --------------------
 
     const html = htmlParser('./temp/content.html');
-    const subject = 'Aloha | Invitation';
+    const subject = "Let's GitExplor";
     const attachment = [
         {
-            filename: 'dsc.png',
+            filename: 'logo.png',
             path: './temp/logo.png',
             cid: 'logo',
         },
         {
-            filename: 'dsc-1.png',
+            filename: 'banner.png',
             path: './temp/gdsc.png',
             cid: 'gdsc',
         },
