@@ -1,0 +1,53 @@
+[
+    {
+        "EventName": "Participants",
+        "CertificateName": "Participation",
+        "FileType": "filetype",
+        "FileName": "./data/CSV/Participants.csv",
+        "DataDirectoryPath": "./data/Certificates/Participants",
+        "data": [
+            {
+                "NAME": "NAME1",
+                "MAIL": "email1_here"
+            },
+            {
+                "NAME": "NAME2",
+                "MAIL": "email2_here"
+            }
+        ]
+    },
+    {
+        "EventName": "EVENT_NAME_1",
+        "CertificateName": "EVENT NAME 1",
+        "FileType": "filetype1",
+        "FileName": "./data/CSV/EVENT_NAME_1.csv",
+        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_1",
+        "data": [
+            {
+                "NAME": "NAME1",
+                "MAIL": "email1_here"
+            },
+            {
+                "NAME": "NAME2",
+                "MAIL": "email2_here"
+            }
+        ]
+    },
+    {
+        "EventName": "EVENT_NAME_2",
+        "CertificateName": "EVENT NAME 1",
+        "FileType": "filetype2",
+        "FileName": "./data/CSV/EVENT_NAME_2.csv",
+        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_2",
+        "data": [
+            {
+                "NAME": "NAME1",
+                "MAIL": "email1_here"
+            },
+            {
+                "NAME": "NAME2",
+                "MAIL": "email2_here"
+            }
+        ]
+    }
+]

@@ -1,0 +1,28 @@
+[
+    {
+        "participant": "email1_here",
+        "attachment": [
+            {
+                "filename": "EVENT NAME 1 Certificate.filetype1",
+                "path": "./data/Certificates/EVENT_NAME_1/NAME1.filetype1"
+            },
+            {
+                "filename": "EVENT NAME 1 Certificate.filetype2",
+                "path": "./data/Certificates/EVENT_NAME_2/NAME1.filetype2"
+            }
+        ]
+    },
+    {
+        "participant": "email2_here",
+        "attachment": [
+            {
+                "filename": "EVENT NAME 1 Certificate.filetype1",
+                "path": "./data/Certificates/EVENT_NAME_1/NAME2.filetype1"
+            },
+            {
+                "filename": "EVENT NAME 1 Certificate.filetype2",
+                "path": "./data/Certificates/EVENT_NAME_2/NAME2.filetype2"
+            }
+        ]
+    }
+]

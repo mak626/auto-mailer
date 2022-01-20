@@ -1,90 +1,106 @@
 require('colors');
 const csv = require('csv-parser');
 const fs = require('fs');
+const rl = require('readline-sync');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
-// eslint-disable-next-line no-unused-vars
-const { devMail, backendMail } = require('./util/constants');
+const { devMail } = require('./util/constants'); // eslint-disable-line no-unused-vars
 const { htmlParser } = require('./util/html_parser');
 
-/** @typedef {import('./models/model').Event} Event */
+/** @typedef {import('./types/model').Event} Event */
 
-/**
- * @param {Event[]} eventData
- * @param {string} attachmentFileType
- */
-const sendMailInviduallyHandler = async (eventData, attachmentFileType) => {
-    const html = htmlParser('./temp/content.html');
-    const subject = 'Certificates for Le Début';
+// ------------------CONFIGURATION-----------------------------
+const debugMode = true;
+const debugFolderPath = './data/temp'; // Default
+const sendDevMail = false;
 
-    const participants = eventData.find((e) => e.EventName === 'Participants');
-    const treasurehunt = eventData.find((e) => e.EventName === 'Treasure Hunt');
-    const bestPerformedTeam = eventData.find((e) => e.EventName === 'Best Performed Team');
+const subject = 'Certificates for Le Début';
+const htmlPath = './temp/content.html';
 
-    let index = 0;
-    const left = [];
+const allParticipationEventName = 'Participants'; // Mandatory Event
+const hasParticipantionCertificate = false;
 
-    for (const e of participants.data) {
-        const id = ++index;
-        const name = e.NAME;
-        const email = e.MAIL;
+const sendMail = false;
+// ------------------END: CONFIGURATION-----------------------------
 
-        console.log(`${id}: Sending mail`.blue.bold, `${name} : ${e.MAIL}`);
-
-        const inBestPerformed = eventData.find((_e) => _e.EventName === 'Best Performed Team').data.find((__e) => __e.MAIL === e.MAIL);
-        const inTreasureHunt = eventData.find((_e) => _e.EventName === 'Treasure Hunt').data.find((__e) => __e.MAIL === e.MAIL);
-
-        const attachment = [];
-
-        if (!fs.existsSync(`${participants.DataDirectoryPath}/${name}.${attachmentFileType}`)) {
-            console.log(`Le Début Participation File For ${name} : ${email} Not Found`.yellow);
-        }
-        attachment.push({
-            filename: `Le Début Participation Certificate.${attachmentFileType}`,
-            path: `${participants.DataDirectoryPath}/${name}.${attachmentFileType}`,
-        });
-
-        if (inBestPerformed) {
-            const tempPath = `${bestPerformedTeam.DataDirectoryPath}/${name}.${attachmentFileType}`;
-            if (!fs.existsSync(tempPath)) {
-                console.log(`BestPerformed File For ${name} : ${email} Not Found`.yellow);
-            }
-            attachment.push({
-                filename: `Best Performed Team Certificate.${attachmentFileType}`,
-                path: tempPath,
-            });
-        }
-
-        if (inTreasureHunt) {
-            const tempPath = `${treasurehunt.DataDirectoryPath}/${name}.${attachmentFileType}`;
-            if (!fs.existsSync(tempPath)) {
-                console.log(`Treasure Hunt File For ${name} : ${email} Not Found`.yellow);
-            }
-            attachment.push({
-                filename: `Treasure Hunt Certificate.${attachmentFileType}`,
-                path: tempPath,
-            });
-        }
-
-        left.push(sendNoReplyMail(devMail, subject, html, attachment, id));
-        // left.push(sendNoReplyMail(email, subject, html, attachment, id));
+const showWarning = (batchFileListLocation) => {
+    if (sendMail) {
+        console.log(`You are about to send mails to everyone in ${batchFileListLocation}`.red.bold);
+        return rl.keyInYN('Do you want to continue or abort');
     }
-
-    await Promise.all(left);
+    return true;
 };
 
 /**
- * @param {string} attachmentFileType
+ * @param {Event[]} eventData
  */
-async function csvParserSendIndividual(attachmentFileType) {
+const sendMailInvidualHandler = async (eventData) => {
+    const html = htmlParser(htmlPath);
+    const { data: participants } = eventData.find((e) => e.EventName === allParticipationEventName);
+
+    let index = 0;
+    const left = [];
+    const debugData = [];
+
+    for (const participant of participants) {
+        const id = ++index;
+        const { NAME: name, MAIL: email } = participant;
+        const attachment = [];
+
+        console.log(`${id}: Processing mail`.blue.bold, `${name} : ${participant.MAIL}`);
+
+        eventData.forEach((currentEvent) => {
+            // Check if participation certificate is there
+            if (currentEvent.EventName === allParticipationEventName && !hasParticipantionCertificate) return;
+
+            // Check if participant is part of current event
+            const inCurrentEvent = currentEvent.data.find((person) => person.MAIL === participant.MAIL);
+            if (!inCurrentEvent) return;
+
+            // If participant is in current event, then attach the certficate
+            const tempPath = `${currentEvent.DataDirectoryPath}/${name}.${currentEvent.FileType}`;
+            if (!fs.existsSync(tempPath)) {
+                console.error(`Not Found ${tempPath} | ${name} : ${email}`.red.bold);
+            } else {
+                attachment.push({
+                    filename: `${currentEvent.CertificateName} Certificate.${currentEvent.FileType}`,
+                    path: tempPath,
+                });
+            }
+        });
+
+        if (sendMail) left.push(sendNoReplyMail(participant.MAIL, subject, html, attachment, id));
+        if (sendDevMail) left.push(sendNoReplyMail(devMail, subject, html, attachment, id));
+
+        if (debugMode) {
+            const data = {
+                participant: participant.MAIL,
+                attachment,
+            };
+            debugData.push(data);
+        }
+    }
+
+    if (debugMode) {
+        console.debug(`Generated mails.json at ${debugFolderPath}/mails.json`.yellow.bold);
+        fs.writeFileSync(`${debugFolderPath}/mails.json`, JSON.stringify(debugData, null, 4));
+    }
+    await Promise.all(left);
+};
+
+async function csvParserSendIndividual() {
     /** @type {Event[]} */
-    let data = await new Promise((resolve) => {
+    let eventData = await new Promise((resolve) => {
         const temp = [];
         fs.createReadStream('./data/events.csv')
             .pipe(csv())
             .on('data', (e) => {
                 const EventName = e.EventName.trim();
+                const CertificateName = e.CertificateName.trim();
+                const FileType = e.FileType.trim();
                 temp.push({
                     EventName,
+                    CertificateName,
+                    FileType,
                     FileName: `./data/CSV/${EventName}.csv`,
                     DataDirectoryPath: `./data/Certificates/${EventName}`,
                 });
@@ -92,7 +108,7 @@ async function csvParserSendIndividual(attachmentFileType) {
             .on('end', () => resolve(temp));
     });
 
-    data = data.map(async (eventObject) => {
+    eventData = eventData.map(async (eventObject) => {
         const results = [];
         const result = new Promise((resolve) => {
             fs.createReadStream(eventObject.FileName)
@@ -111,16 +127,18 @@ async function csvParserSendIndividual(attachmentFileType) {
         };
     });
 
-    data = await Promise.all(data);
-    console.log(JSON.stringify(data, null, 2));
-
-    await sendMailInviduallyHandler(data, attachmentFileType);
+    eventData = await Promise.all(eventData);
+    if (debugMode) {
+        console.debug(`Generated events.json at ${debugFolderPath}/events.json`.yellow.bold);
+        fs.writeFileSync(`${debugFolderPath}/events.json`, JSON.stringify(eventData, null, 4));
+    }
+    await sendMailInvidualHandler(eventData);
 }
 
 (async () => {
     await MailtokenVerifed;
-    const attachmentFileType = 'pdf';
-    await csvParserSendIndividual(attachmentFileType);
+    if (!showWarning()) return;
+    await csvParserSendIndividual();
     console.log('Email Sending Done'.magenta.bold);
     process.exit(0);
 })();

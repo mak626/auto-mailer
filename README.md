@@ -27,5 +27,32 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 -   Create `temp` directory in `root`
 -   Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
--   Refer `models/data-TEMPLATE` for directory structure. Do the same in `data` directory
+-   Refer `data-sample` for directory structure for certificated. Duplicate the same in `data` directory
+-   A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
 -   Configure send_certificates_events.js
+
+    ```
+    debugMode = false;
+    debugFolderPath = './data/temp';
+    sendDevMail = false;
+
+    subject = 'Email Subject';
+    htmlPath = './temp/content.html';
+
+    allParticipationEventName = 'Participants';
+    hasParticipantionCertificate = false;
+
+    sendMail = true;
+    ```
+
+-   For Testing
+
+    ```
+    debugMode = true;
+    debugFolderPath = './data/temp';
+    sendDevMail = false;
+    ```
+
+    `sendDevMail` can be set to `true` to send all mail to `DEV_MAIL`
+
+    Testing will generate `events.json` and `mails.json` at `debugFolderPath` which can be used to verify what are the attachements being sent to participants

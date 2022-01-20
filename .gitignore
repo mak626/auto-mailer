@@ -2,7 +2,7 @@ node_modules
 .env
 data/*
 assets/coreteam
-temp
+/temp
 *.png
 tokens
 *.log

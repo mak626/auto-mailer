@@ -6,6 +6,7 @@ export interface Person {
 export interface Event {
     EventName: string;
     FileName: string;
+    FileType: string;
     CertificateName: string;
     DataDirectoryPath: string;
     data: Person[];
