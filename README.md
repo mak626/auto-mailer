@@ -9,6 +9,8 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 -   `DEV_MAIL`=developerEmail
 -   `BACKEND`=backendEmail
 -   `LEAD_MAIL`=leadEmail
+-   `CORE_TEAM`=coreTeamEmail
+-   `IPHONE_MAIL`=iphoneUserEmail
 
 # Usage
 
