@@ -1,7 +1,7 @@
 const fs = require('fs');
 const juice = require('juice');
 
-/** @typedef {import('../models/model').Attachement} Attachement */
+/** @typedef {import('../types/model').Attachment} Attachement */
 
 /**
  * @param {string} htmlFilePath

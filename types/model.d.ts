@@ -6,10 +6,11 @@ export interface Person {
 export interface Event {
     EventName: string;
     FileName: string;
+    CertificateName: string;
     DataDirectoryPath: string;
     data: Person[];
 }
-export interface Attachement {
+export interface Attachment {
     filename: string;
     path: string;
     cid: string;
