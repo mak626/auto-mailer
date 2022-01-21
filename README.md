@@ -7,6 +7,7 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 -   `CLIENT_NAME`=serverEmailUsername
 -   `GOOGLE_USER`=serverEmailID
 -   `DEV_MAIL`=developerEmail
+-   `DEV_NAME`=developerName
 -   `BACKEND`=backendEmail
 -   `LEAD_MAIL`=leadEmail
 -   `CORE_TEAM`=coreTeamEmail

@@ -4,7 +4,7 @@ const fs = require('fs');
 const rl = require('readline-sync');
 
 // eslint-disable-next-line no-unused-vars
-const { devMail, backendMail, leadMail, coreMail, iphoneMail } = require('./util/constants');
+const { devMail, devName, backendMail, leadMail, coreMail, iphoneMail } = require('./util/constants');
 const { htmlParser } = require('./util/html_parser');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 
@@ -20,24 +20,24 @@ async function csvParse() {
     // -------------------- CONFIGURATION --------------------
 
     const html = htmlParser('./temp/content.html');
-    const subject = "Let's GitExplor";
+    const subject = 'SUBJECT_HERE';
     const attachment = [
-        {
-            filename: 'logo.png',
-            path: './temp/logo.png',
-            cid: 'logo',
-        },
-        {
-            filename: 'banner.png',
-            path: './temp/gdsc.png',
-            cid: 'gdsc',
-        },
+        // {
+        //     filename: 'logo.png',
+        //     path: './temp/logo.png',
+        //     cid: 'logo',
+        // },
+        // {
+        //     filename: 'banner.png',
+        //     path: './temp/gdsc.png',
+        //     cid: 'gdsc',
+        // },
     ];
 
     const batchFileListLocation = './temp/batch.csv';
 
     const sendMailTo = {
-        dev: false,
+        dev: true,
         backEnd: false,
         iphoneUser: false,
         coreTeam: false,
@@ -52,7 +52,7 @@ async function csvParse() {
 
     if (!showWarning(sendMailTo, batchFileListLocation)) return;
 
-    if (sendMailTo.dev) toLeft.push(sendNoReplyMail(devMail, subject, html.replace('<#NAME>', 'MAK'), attachment, id++));
+    if (sendMailTo.dev) toLeft.push(sendNoReplyMail(devMail, subject, html.replace('<#NAME>', devName), attachment, id++));
     if (sendMailTo.backEnd) toLeft.push(sendNoReplyMail(backendMail, subject, html.replace('<#NAME>', 'Backend'), attachment, id++));
     if (sendMailTo.lead) toLeft.push(sendNoReplyMail(leadMail, subject, html.replace('<#NAME>', 'Riya'), attachment, id++));
     if (sendMailTo.coreTeam) toLeft.push(sendNoReplyMail(coreMail, subject, html.replace('<#NAME>', 'Core Team'), attachment, id++));
