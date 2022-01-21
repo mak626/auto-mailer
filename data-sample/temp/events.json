@@ -35,7 +35,7 @@
     },
     {
         "EventName": "EVENT_NAME_2",
-        "CertificateName": "EVENT NAME 1",
+        "CertificateName": "EVENT NAME 2",
         "FileType": "filetype2",
         "FileName": "./data/CSV/EVENT_NAME_2.csv",
         "DataDirectoryPath": "./data/Certificates/EVENT_NAME_2",
