@@ -32,6 +32,7 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 -   Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
 -   Refer `data-sample` for directory structure for certificated. Duplicate the same in `data` directory
 -   A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
+-   `hasParticipantionCertificate` can be set to `true` in cas participation certificates are there
 -   Configure send_certificates_events.js
 
     ```
