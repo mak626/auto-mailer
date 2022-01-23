@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "send_individual": "node send_individual.js",
-    "send_category_wise": "node send_category_wise.js"
+    "send_category_wise": "node send_category_wise.js",
+    "generate-token": "node util/token_generator_manual.js"
   },
   "repository": {
     "type": "git",
