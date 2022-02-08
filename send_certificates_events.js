@@ -57,7 +57,7 @@ const sendMailInvidualHandler = async (eventData) => {
             if (!inCurrentEvent) return;
 
             // If participant is in current event, then attach the certficate
-            const tempPath = `${currentEvent.DataDirectoryPath}/${name}.${currentEvent.FileType}`;
+            const tempPath = `${currentEvent.DataDirectoryPath}/${name.toUpperCase()}.${currentEvent.FileType}`;
             if (!fs.existsSync(tempPath)) {
                 console.error(`Not Found ${tempPath} | ${name} : ${email}`.red.bold);
             } else {
