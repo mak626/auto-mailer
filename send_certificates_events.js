@@ -13,11 +13,12 @@ const debugMode = true;
 const debugFolderPath = './data/temp'; // Default
 const sendDevMail = false;
 
-const subject = 'Certificates for Le Début';
+const subject = 'Email Subject Here';
 const htmlPath = './temp/content.html';
+const dataPath = './data';
 
 const allParticipationEventName = 'Participants'; // Mandatory Event
-const hasParticipantionCertificate = false;
+const hasParticipantionCertificate = true;
 
 const sendMail = false;
 // ------------------END: CONFIGURATION-----------------------------
@@ -57,9 +58,9 @@ const sendMailInvidualHandler = async (eventData) => {
             if (!inCurrentEvent) return;
 
             // If participant is in current event, then attach the certficate
-            const tempPath = `${currentEvent.DataDirectoryPath}/${name.toUpperCase()}.${currentEvent.FileType}`;
+            const tempPath = `${currentEvent.DataDirectoryPath}/${email}.${currentEvent.FileType}`;
             if (!fs.existsSync(tempPath)) {
-                console.error(`Not Found ${tempPath} | ${name} : ${email}`.red.bold);
+                console.error(`${currentEvent.EventName} File Not Found at ${tempPath}`.red.bold);
             } else {
                 attachment.push({
                     filename: `${currentEvent.CertificateName} Certificate.${currentEvent.FileType}`,
@@ -91,7 +92,7 @@ async function csvParserSendIndividual() {
     /** @type {Event[]} */
     let eventData = await new Promise((resolve) => {
         const temp = [];
-        fs.createReadStream('./data/events.csv')
+        fs.createReadStream(`${dataPath}/events.csv`)
             .pipe(csv())
             .on('data', (e) => {
                 const EventName = e.EventName.trim();
@@ -101,8 +102,8 @@ async function csvParserSendIndividual() {
                     EventName,
                     CertificateName,
                     FileType,
-                    FileName: `./data/CSV/${EventName}.csv`,
-                    DataDirectoryPath: `./data/Certificates/${EventName}`,
+                    FileName: `${dataPath}/CSV/${EventName}.csv`,
+                    DataDirectoryPath: `${dataPath}/Certificates/${EventName}`,
                 });
             })
             .on('end', () => resolve(temp));
