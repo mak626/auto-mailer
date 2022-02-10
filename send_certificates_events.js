@@ -69,8 +69,12 @@ const sendMailInvidualHandler = async (eventData) => {
             }
         });
 
-        if (sendMail) left.push(sendNoReplyMail(participant.MAIL, subject, html, attachment, id));
-        if (sendDevMail) left.push(sendNoReplyMail(devMail, subject, html, attachment, id));
+        if (sendMail) {
+            left.push(sendNoReplyMail(participant.MAIL, subject, html.replace('<#NAME>', participant.NAME.split(' ')[0]), attachment, id));
+        }
+        if (sendDevMail) {
+            left.push(sendNoReplyMail(devMail, subject, html.replace('<#NAME>', participant.NAME.split(' ')[0]), attachment, id));
+        }
 
         if (debugMode) {
             const data = {
