@@ -118,12 +118,18 @@ async function csvParserSendIndividual() {
         const result = new Promise((resolve) => {
             fs.createReadStream(eventObject.FileName)
                 .pipe(csv())
-                .on('data', (e) =>
-                    results.push({
-                        NAME: e.NAME.trim(),
-                        MAIL: e.MAIL.trim(),
-                    })
-                )
+                .on('data', (e) => {
+                    const email = e.MAIL.trim();
+
+                    if (results.find((person) => person.MAIL === email)) {
+                        console.log(`Skipping Duplicate Email: ${email}`.red.bold);
+                    } else {
+                        results.push({
+                            NAME: e.NAME.trim(),
+                            MAIL: email,
+                        });
+                    }
+                })
                 .on('end', () => resolve(results));
         });
         return {
