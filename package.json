@@ -25,13 +25,13 @@
     "googleapis": "^83.0.0",
     "inline-css": "^3.0.0",
     "juice": "^8.0.0",
-    "nodemailer": "^6.6.3",
+    "nodemailer": "^6.7.2",
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.23.4"
+    "eslint-plugin-import": "^2.25.4"
   }
 }
