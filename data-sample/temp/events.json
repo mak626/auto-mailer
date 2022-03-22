@@ -2,51 +2,47 @@
     {
         "EventName": "Participants",
         "CertificateName": "Participation",
-        "FileType": "filetype",
+        "FileType": "pdf",
         "FileName": "./data/CSV/Participants.csv",
         "DataDirectoryPath": "./data/Certificates/Participants",
         "data": [
             {
-                "NAME": "NAME1",
-                "MAIL": "email1_here"
+                "NAME": "John Doe",
+                "MAIL": "johndoe@gmail.com"
             },
             {
-                "NAME": "NAME2",
-                "MAIL": "email2_here"
+                "NAME": "Jane Doe",
+                "MAIL": "janedoe@gmail.com"
             }
         ]
     },
     {
         "EventName": "EVENT_NAME_1",
         "CertificateName": "EVENT NAME 1",
-        "FileType": "filetype1",
+        "FileType": "pdf",
         "FileName": "./data/CSV/EVENT_NAME_1.csv",
         "DataDirectoryPath": "./data/Certificates/EVENT_NAME_1",
         "data": [
             {
-                "NAME": "NAME1",
-                "MAIL": "email1_here"
+                "NAME": "John Doe",
+                "MAIL": "johndoe@gmail.com"
             },
             {
-                "NAME": "NAME2",
-                "MAIL": "email2_here"
+                "NAME": "Jane Doe",
+                "MAIL": "janedoe@gmail.com"
             }
         ]
     },
     {
         "EventName": "EVENT_NAME_2",
         "CertificateName": "EVENT NAME 2",
-        "FileType": "filetype2",
+        "FileType": "img",
         "FileName": "./data/CSV/EVENT_NAME_2.csv",
         "DataDirectoryPath": "./data/Certificates/EVENT_NAME_2",
         "data": [
             {
-                "NAME": "NAME1",
-                "MAIL": "email1_here"
-            },
-            {
-                "NAME": "NAME2",
-                "MAIL": "email2_here"
+                "NAME": "John Doe",
+                "MAIL": "johndoe@gmail.com"
             }
         ]
     }
