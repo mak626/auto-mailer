@@ -150,6 +150,6 @@ async function csvParserSendIndividual() {
     await MailtokenVerifed;
     if (!showWarning(dataPath)) return;
     await csvParserSendIndividual();
-    console.log('Email Sending Done'.magenta.bold);
+    if (sendMail || sendDevMail) console.log('Email Sending Done'.magenta.bold);
     process.exit(0);
 })();
