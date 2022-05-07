@@ -5,6 +5,7 @@ const rl = require('readline-sync');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 const { devMail } = require('./util/constants'); // eslint-disable-line no-unused-vars
 const { htmlParser } = require('./util/html_parser');
+const { getOptimalName } = require('./util/name-parser');
 
 /** @typedef {import('./types/model').Event} Event */
 
@@ -125,7 +126,7 @@ async function csvParserSendIndividual() {
                         console.log(`Skipping Duplicate Email: ${email}`.red.bold);
                     } else {
                         results.push({
-                            NAME: e.NAME.trim(),
+                            NAME: getOptimalName(e.NAME),
                             MAIL: email,
                         });
                     }

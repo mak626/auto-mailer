@@ -7,6 +7,7 @@ const rl = require('readline-sync');
 const { devMail, devName, backendMail, leadMail, coreMail, iphoneMail } = require('./util/constants');
 const { htmlParser } = require('./util/html_parser');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
+const { getOptimalName } = require('./util/name-parser');
 
 const showWarning = (sendMailTo, batchFileListLocation) => {
     if (sendMailTo.batchListParticipants) {
@@ -64,7 +65,7 @@ async function csvParse() {
             .pipe(csv())
             .on('data', (e) => {
                 if (sendMailTo.batchListParticipants) {
-                    toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', e.NAME), attachment, id++));
+                    toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', getOptimalName(e.NAME)), attachment, id++));
                 }
             })
             .on('end', () => {
