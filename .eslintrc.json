@@ -6,6 +6,7 @@
         "node": true
     },
     "extends": ["airbnb-base"],
+    "plugins": ["html"],
     "parserOptions": {
         "ecmaVersion": 12
     },
