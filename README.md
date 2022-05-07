@@ -2,7 +2,12 @@
 
 Parses data in csv, matches it to corresponding pdf and sends mail to people ( Certificate AUTOMATION )
 
-# .env CONIFIG
+# Pre Config Files
+
+-   `./assets/tokens/client.json`
+-   `./assets/tokens/mail.json` (Can be generated using `npm run generate-token`)
+
+# .env Config
 
 -   `CLIENT_NAME`=serverEmailUsername
 -   `GOOGLE_USER`=serverEmailID
