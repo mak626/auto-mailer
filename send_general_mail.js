@@ -9,6 +9,8 @@ const { htmlParser } = require('./util/html_parser');
 const { sendNoReplyMail, MailtokenVerifed } = require('./util/mailHandler');
 const { getOptimalName } = require('./util/name-parser');
 
+/** @typedef {import('./types/model').Attachment} Attachment */
+
 const showWarning = (sendMailTo, batchFileListLocation) => {
     if (sendMailTo.batchListParticipants) {
         console.log(`You are about to send mails to everyone in ${batchFileListLocation}`.red.bold);
@@ -22,6 +24,8 @@ async function csvParse() {
 
     const html = htmlParser('./temp/content.html');
     const subject = 'SUBJECT_HERE';
+
+    /** @type {Attachment[]} */
     const attachment = [
         // {
         //     filename: 'logo.png',
