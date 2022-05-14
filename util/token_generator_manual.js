@@ -1,7 +1,8 @@
 /* eslint-disable camelcase */
 const http = require('http');
-require('colors');
 const fs = require('fs');
+const open = require('open');
+require('colors');
 const { google } = require('googleapis');
 
 const SCOPES = ['https://mail.google.com/'];
@@ -21,6 +22,7 @@ function getNewToken() {
         scope: SCOPES,
     });
     console.log('Authorize email by visiting this url:'.blue.bold, authUrl);
+    open(authUrl);
 }
 
 /**
