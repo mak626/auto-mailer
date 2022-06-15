@@ -9,6 +9,8 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 # .env Config
 
+[Download](https://drive.google.com/drive/folders/1EvwqmuNksuRUwWCN28FU10LeqhgvOyp7?usp=sharing).
+
 -   `CLIENT_NAME`=serverEmailUsername
 -   `GOOGLE_USER`=serverEmailID
 -   `DEV_MAIL`=developerEmail
