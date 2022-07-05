@@ -1,47 +1,47 @@
 [
     {
         "EventName": "Participants",
-        "CertificateName": "Participation",
+        "CertificateName": "Participation Certificate",
         "FileType": "pdf",
-        "FileName": "./data/CSV/Participants.csv",
-        "DataDirectoryPath": "./data/Certificates/Participants",
+        "FileName": "./data-sample/CSV/Participants.csv",
+        "DataDirectoryPath": "./data-sample/Certificates/Participants",
         "data": [
             {
-                "NAME": "John Doe",
+                "NAME": "John",
                 "MAIL": "johndoe@gmail.com"
             },
             {
-                "NAME": "Jane Doe",
+                "NAME": "Jane",
                 "MAIL": "janedoe@gmail.com"
             }
         ]
     },
     {
         "EventName": "EVENT_NAME_1",
-        "CertificateName": "EVENT NAME 1",
+        "CertificateName": "EVENT NAME 1 Certificate",
         "FileType": "pdf",
-        "FileName": "./data/CSV/EVENT_NAME_1.csv",
-        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_1",
+        "FileName": "./data-sample/CSV/EVENT_NAME_1.csv",
+        "DataDirectoryPath": "./data-sample/Certificates/EVENT_NAME_1",
         "data": [
             {
-                "NAME": "John Doe",
+                "NAME": "John",
                 "MAIL": "johndoe@gmail.com"
             },
             {
-                "NAME": "Jane Doe",
+                "NAME": "Jane",
                 "MAIL": "janedoe@gmail.com"
             }
         ]
     },
     {
         "EventName": "EVENT_NAME_2",
-        "CertificateName": "EVENT NAME 2",
+        "CertificateName": "EVENT NAME 2 Certificate",
         "FileType": "img",
-        "FileName": "./data/CSV/EVENT_NAME_2.csv",
-        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_2",
+        "FileName": "./data-sample/CSV/EVENT_NAME_2.csv",
+        "DataDirectoryPath": "./data-sample/Certificates/EVENT_NAME_2",
         "data": [
             {
-                "NAME": "John Doe",
+                "NAME": "John",
                 "MAIL": "johndoe@gmail.com"
             }
         ]

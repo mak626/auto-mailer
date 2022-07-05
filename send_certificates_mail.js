@@ -64,7 +64,7 @@ const sendMailInvidualHandler = async (eventData) => {
                 console.error(`${currentEvent.EventName} File Not Found at ${tempPath}`.red.bold);
             } else {
                 attachment.push({
-                    filename: `${currentEvent.CertificateName} Certificate.${currentEvent.FileType}`,
+                    filename: `${currentEvent.CertificateName}.${currentEvent.FileType}`,
                     path: tempPath,
                 });
             }

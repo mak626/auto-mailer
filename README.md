@@ -43,7 +43,7 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 -   `hasParticipantionCertificate` can be set to `true` in case participation certificates are there
 -   Configure send_certificates_events.js
 
-    ```
+    ```javascript
     debugMode = false;
     debugFolderPath = './data/temp';
     sendDevMail = false;
@@ -60,7 +60,7 @@ Parses data in csv, matches it to corresponding pdf and sends mail to people ( C
 
 -   For Testing
 
-    ```
+    ```javascript
     debugMode = true;
     debugFolderPath = './data/temp';
     sendDevMail = false;
