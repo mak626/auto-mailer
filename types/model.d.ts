@@ -11,8 +11,3 @@ export interface Event {
     DataDirectoryPath: string;
     data: Person[];
 }
-export interface Attachment {
-    filename: string;
-    path: string;
-    cid: string;
-}

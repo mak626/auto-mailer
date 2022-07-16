@@ -1,6 +1,7 @@
-require('dotenv').config();
+import { config } from 'dotenv';
+config();
 
-module.exports = {
+const constants = {
     clientName: process.env.CLIENT_NAME,
     clientEmail: process.env.GOOGLE_USER,
     devMail: process.env.DEV_MAIL,
@@ -10,3 +11,5 @@ module.exports = {
     coreMail: process.env.CORE_TEAM,
     iphoneMail: process.env.IPHONE_MAIL,
 };
+
+export default constants;

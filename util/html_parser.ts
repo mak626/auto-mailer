@@ -1,5 +1,5 @@
-const fs = require('fs');
-const juice = require('juice');
+import juice from 'juice';
+import fs from 'fs';
 
 /** @typedef {import('../types/model').Attachment} Attachement */
 
@@ -9,7 +9,7 @@ const juice = require('juice');
  *
  * Ensure src paths of image are absolute eg: ../temp/logo.png
  */
-const htmlParser = (htmlFilePath) => {
+const htmlParser = (htmlFilePath: string) => {
     const attachment = [
         {
             path: './temp/logo.png',
@@ -20,8 +20,8 @@ const htmlParser = (htmlFilePath) => {
             cid: 'gdsc',
         },
     ];
-    const html = fs.readFileSync(htmlFilePath, 'utf-8', () => {});
-    let css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8', () => {});
+    const html = fs.readFileSync(htmlFilePath, 'utf-8');
+    let css = fs.readFileSync(htmlFilePath.replace('html', 'css'), 'utf-8');
 
     // Converting css variables to inline
     const reg = /--.*:.*;/gm;
@@ -43,4 +43,4 @@ const htmlParser = (htmlFilePath) => {
     return parsedHtml;
 };
 
-module.exports = { htmlParser };
+export default htmlParser;
