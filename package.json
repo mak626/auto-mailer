@@ -1,17 +1,18 @@
 {
   "name": "mail-auto-mailer",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Automates Mass Mailing (Certificate generation)",
-  "main": "send_general_mail.js",
+  "main": "send_general_mail.ts",
   "scripts": {
-    "send_individual": "node send_individual.js",
-    "send_category_wise": "node send_category_wise.js",
-    "generate-token": "node util/token_generator_manual.js"
+    "send_individual": "ts-node send_general_mail.ts",
+    "send_certicate_events": "ts-node send_certificates_mail.ts",
+    "generate-token": "ts-node util/token_generator_manual.ts"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dscmbcet/mail-auto-mailer.git"
   },
+  "private": true,
   "author": "M Aswin Kishore",
   "license": "MIT",
   "bugs": {
@@ -30,10 +31,17 @@
     "readline-sync": "^1.4.10"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
+    "@types/nodemailer": "^6.4.4",
+    "@types/readline-sync": "^1.4.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-google": "^0.14.0",
-    "eslint-plugin-html": "^6.2.0",
-    "eslint-plugin-import": "^2.25.4"
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-no-floating-promise": "^1.0.2",
+    "ts-node": "^10.8.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
   }
 }

@@ -1,64 +1,78 @@
 # Auto Mailer
 
-Parses data in csv, matches it to corresponding pdf and sends mail to people ( Certificate AUTOMATION )
+Parses data in events csv, matches and verified it to the corresponding pdf, then groups it by email and sends it.
 
-# Pre Config Files
+## Pre Config Files
 
--   `./assets/tokens/client.json`
--   `./assets/tokens/mail.json` (Can be generated using `npm run generate-token`)
+- `./assets/tokens/client.json`
+- `./assets/tokens/mail.json` (Can be generated using `npm run generate-token`)
 
-# .env Config
+## .env Config
 
 [Download](https://drive.google.com/drive/folders/1EvwqmuNksuRUwWCN28FU10LeqhgvOyp7?usp=sharing).
 
--   `CLIENT_NAME`=serverEmailUsername
--   `GOOGLE_USER`=serverEmailID
--   `DEV_MAIL`=developerEmail
--   `DEV_NAME`=developerName
--   `BACKEND`=backendEmail
--   `LEAD_MAIL`=leadEmail
--   `CORE_TEAM`=coreTeamEmail
--   `IPHONE_MAIL`=iphoneUserEmail
+- `CLIENT_NAME`=serverEmailUsername
+- `GOOGLE_USER`=serverEmailID
+- `DEV_MAIL`=developerEmail
+- `DEV_NAME`=developerName
+- `BACKEND`=backendEmail
+- `LEAD_MAIL`=leadEmail
+- `CORE_TEAM`=coreTeamEmail
+- `IPHONE_MAIL`=iphoneUserEmail
 
-# Usage
+## Usage
 
-#### Installation
+### Installation
 
--   `npm i`
+- `npm install`
 
-#### General Mail
+### General Mail
 
--   Create `temp` directory in `root`
--   Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
--   Add a `batch.css` in temp directory for list of people to sent the mail to.
--   Configure send_general_mail.js
+- Create `temp` directory in `root`
+- Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
+- Add a `batch.csv` in temp directory for list of people to sent the mail to.
+- Configure `send_general_mail.ts`
+- Run `npm run-script send_individual`
 
-#### Certificates Mail
+### Certificates Mail
 
--   Create `temp` directory in `root`
--   Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
--   Refer `data-sample` for directory structure for certificates. Duplicate the same in `data` directory
--   All the images/pdfs in `CERTIFICATES` should be in be as `EMAIL`.`datatype`
--   A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
--   `hasParticipantionCertificate` can be set to `true` in case participation certificates are there
--   Configure send_certificates_events.js
+- Create `temp` directory in `root`
+- Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
+- Refer `data-sample` for directory structure for certificates. Duplicate the same in `data` directory
+- All the images/pdfs in `CERTIFICATES` should be in be as `EMAIL`.`datatype`
+- A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
+- `hasParticipantionCertificate` can be set to `true` in case participation certificates are there
+- Configure `send_certificates_events.ts`
+- Run `npm run-script send_certicate_events`
 
     ```javascript
-    debugMode = false;
-    debugFolderPath = './data/temp';
-    sendDevMail = false;
+    /** Generates debugging files events.json and mails.json at {debugFolderPath} */
+    debugMode: false,
 
-    subject = 'Email Subject';
-    htmlPath = './temp/content.html';
-    dataPath = './data';
+    /** Generates debugging files events.json and mails.json at {debugFolderPath} */
+    debugFolderPath: './data/temp',
 
-    allParticipationEventName = 'Participants';
-    hasParticipantionCertificate = false;
+    sendDevMail: false,
+    subject: 'Email Subject Here',
+    htmlPath: './temp/content.html',
 
-    sendMail = true;
+    /** Path where the csv and other related data is stored. Must have the same structue of {data-sample} */
+    dataPath: './data',
+
+    /** A csv {Participants.csv} is mandatory for auto-mailer to work. It is a super set of all other csv events. */
+    allParticipationEventName: 'Participants', // Mandatory Event
+
+    /**
+     * Since {Participants} event is mandatory, automailer will raise error if it could not find participant's certificates.
+     * If the event does not have a participation certificate you can set {hasParticipantionCertificate} to false
+     */
+    hasParticipantionCertificate: true,
+
+    /** Send mail To everyone in csv */
+    sendMail: true,
     ```
 
--   For Testing
+- For Testing
 
     ```javascript
     debugMode = true;
