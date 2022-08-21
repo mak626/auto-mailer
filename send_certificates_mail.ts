@@ -10,7 +10,7 @@ import type { CertificateConfig } from './types/config';
 import { sendNoReplyMail, MailtokenVerifed } from './util/mailHandler';
 import constants from './util/constants';
 import htmlParser from './util/html_parser';
-import getProperFirstName from './util/name-parser';
+import { checkHeaders, getProperFirstName } from './util/parser';
 
 // ------------------CONFIGURATION-----------------------------
 
@@ -131,11 +131,18 @@ const sendMailInvidualHandler = async (eventData: Event[]) => {
 };
 
 async function csvParserSendIndividual() {
+    const headersEvents = ['EventName', 'CertificateName', 'FileType'];
+    const headersPerson = ['NAME', 'MAIL'];
+
     const eventDataCSV: EventsCSVStream[] = await new Promise((resolve) => {
         const temp: EventsCSVStream[] = [];
+
         fs.createReadStream(`${CONFIG.dataPath}/events.csv`)
             .pipe(csv())
             .on('data', (e: EventsCSV) => {
+                if (!checkHeaders(headersEvents, e)) {
+                    return console.error(`CSV headers must be: ${headersEvents.join(',')}`.red.bold);
+                }
                 const EventName = e.EventName.trim();
                 const CertificateName = e.CertificateName.trim();
                 const FileType = e.FileType.trim();
@@ -157,6 +164,9 @@ async function csvParserSendIndividual() {
                 fs.createReadStream(eventObject.FileName)
                     .pipe(csv())
                     .on('data', (e: Person) => {
+                        if (!checkHeaders(headersPerson, e)) {
+                            return console.error(`CSV headers must be: ${headersPerson.join(',')}`.red.bold);
+                        }
                         const email = e.MAIL.trim();
 
                         if (results.find((person) => person.MAIL === email)) {

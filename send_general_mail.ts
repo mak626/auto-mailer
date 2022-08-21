@@ -8,7 +8,7 @@ import type { MailCSV } from './types/csv';
 import type { GeneralConfig } from './types/config';
 import htmlParser from './util/html_parser';
 import { sendNoReplyMail, MailtokenVerifed } from './util/mailHandler';
-import getProperFirstName from './util/name-parser';
+import { checkHeaders, getProperFirstName } from './util/parser';
 
 // -------------------- CONFIGURATION --------------------
 
@@ -81,9 +81,13 @@ async function csvParse() {
     }
 
     await new Promise((resolve) => {
+        const headers = ['NAME', 'MAIL'];
         fs.createReadStream(batchFileListLocation)
             .pipe(csv())
             .on('data', (e: MailCSV) => {
+                if (!checkHeaders(headers, e)) {
+                    return console.error(`CSV headers must be: ${headers.join(',')}`.red.bold);
+                }
                 if (sendMailTo.batchListParticipants) {
                     toLeft.push(sendNoReplyMail(e.MAIL, subject, html.replace('<#NAME>', getProperFirstName(e.NAME)), attachment, id++));
                 }
