@@ -45,7 +45,7 @@ const CONFIG: GeneralConfig = {
 
 // -------------------- CONFIGURATION --------------------
 
-const { devMail, devName, backendMail, leadMail, coreMail, iphoneMail } = constants;
+const { devMail, devName, backendMail, leadMail, leadName, coreMail, iphoneMail, iphoneName } = constants;
 
 const showWarning = (sendMail: boolean, batchFileListLocation: string) => {
     if (sendMail) {
@@ -70,14 +70,14 @@ async function csvParse() {
     if (sendMailTo.backEnd && backendMail) {
         toLeft.push(sendNoReplyMail(backendMail, subject, html.replace('<#NAME>', 'Backend'), attachment, id++));
     }
-    if (sendMailTo.lead && leadMail) {
-        toLeft.push(sendNoReplyMail(leadMail, subject, html.replace('<#NAME>', 'Riya'), attachment, id++));
+    if (sendMailTo.lead && leadMail && leadName) {
+        toLeft.push(sendNoReplyMail(leadMail, subject, html.replace('<#NAME>', leadName), attachment, id++));
     }
     if (sendMailTo.coreTeam && coreMail) {
         toLeft.push(sendNoReplyMail(coreMail, subject, html.replace('<#NAME>', 'Core Team'), attachment, id++));
     }
-    if (sendMailTo.iphoneUser && iphoneMail) {
-        toLeft.push(sendNoReplyMail(iphoneMail, subject, html.replace('<#NAME>', 'Salman'), attachment, id++));
+    if (sendMailTo.iphoneUser && iphoneMail && iphoneName) {
+        toLeft.push(sendNoReplyMail(iphoneMail, subject, html.replace('<#NAME>', iphoneName), attachment, id++));
     }
 
     await new Promise((resolve) => {

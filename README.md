@@ -17,8 +17,10 @@ Parses data in events csv, matches and verified it to the corresponding pdf, the
 - `DEV_NAME`=developerName
 - `BACKEND`=backendEmail
 - `LEAD_MAIL`=leadEmail
+- `LEAD_NAME`=leadName
 - `CORE_TEAM`=coreTeamEmail
 - `IPHONE_MAIL`=iphoneUserEmail
+- `IPHONE_NAME`=iphoneUserName
 
 ## Usage
 
