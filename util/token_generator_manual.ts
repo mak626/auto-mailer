@@ -3,10 +3,12 @@
 import fs from 'fs';
 import 'colors';
 import { google } from 'googleapis';
-import type { OAuth2Client, Credentials } from 'google-auth-library';
 import open from 'open';
 import http from 'node:http';
 import type { FirebaseCredential } from '../types/credential';
+
+type Credentials = typeof google.auth.OAuth2.prototype.credentials;
+type OAuth2Client = typeof google.auth.OAuth2.prototype;
 
 const SCOPES = ['https://mail.google.com/'];
 const TOKEN_PATH = './assets/tokens/mail.json';
