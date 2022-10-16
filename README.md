@@ -1,6 +1,6 @@
 # Auto Mailer
 
-Parses data in events csv, matches and verified it to the corresponding pdf, then groups it by email and sends it.
+Parses data in events csv, matches and verifies it to the corresponding pdf, then groups it by email and sends it.
 
 ## Pre Config Files
 
