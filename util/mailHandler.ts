@@ -32,7 +32,7 @@ const transporter = nodemailer.createTransport({
         user: clientEmail,
         refreshToken: token.refresh_token,
         accessToken: token.access_token,
-        expires: token.expires_in,
+        expires: token.expiry_date,
     },
     // auth: {
     //     user: process.env.GOOGLE_USER,
