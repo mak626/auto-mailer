@@ -25,7 +25,7 @@
             }
         }
     },
-    "ignorePatterns": ["/lib/**/*", "jest.config.ts"],
+    "ignorePatterns": ["/lib/**/*", "jest.config.ts", "*.html"],
     "rules": {
         "linebreak-style": ["error", "windows"],
         "indent": ["off"],
