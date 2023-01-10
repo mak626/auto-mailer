@@ -8,7 +8,7 @@ export interface CertificateConfig {
     htmlPath: string;
     dataPath: string;
     allParticipationEventName: string;
-    hasParticipantionCertificate: boolean;
+    hasParticipationCertificate: boolean;
     sendMail: boolean;
 }
 

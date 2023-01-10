@@ -7,7 +7,7 @@ import type Mail from 'nodemailer/lib/mailer';
 import type { Event, Person } from './types/model';
 import type { EventsCSV, EventsCSVStream } from './types/csv';
 import type { CertificateConfig } from './types/config';
-import { sendNoReplyMail, MailtokenVerifed } from './util/mailHandler';
+import { sendNoReplyMail, MailTokenVerified } from './util/mailHandler';
 import constants from './util/constants';
 import htmlParser from './util/html_parser';
 import { checkHeaders, getProperFirstName } from './util/parser';
@@ -25,7 +25,7 @@ const CONFIG: CertificateConfig = {
     subject: 'Email Subject Here',
     htmlPath: './temp/content.html',
 
-    /** Path where the csv and other related data is stored. Must have the same structue of {data-sample} */
+    /** Path where the csv and other related data is stored. Must have the same structure of {data-sample} */
     dataPath: './data',
 
     /** A csv {Participants.csv} is mandatory for auto-mailer to work. It is a super set of all other csv events. */
@@ -33,9 +33,9 @@ const CONFIG: CertificateConfig = {
 
     /**
      * Since {Participants} event is mandatory, automailer will raise error if it could not find participant's certificates.
-     * If the event does not have a participation certificate you can set {hasParticipantionCertificate} to false
+     * If the event does not have a participation certificate you can set {hasParticipationCertificate} to false
      */
-    hasParticipantionCertificate: true,
+    hasParticipationCertificate: true,
 
     /** Send mail To everyone in csv */
     sendMail: false,
@@ -54,7 +54,7 @@ const showWarning = (batchFileListLocation: string) => {
     return true;
 };
 
-const sendMailInvidualHandler = async (eventData: Event[]) => {
+const sendMailIndividualHandler = async (eventData: Event[]) => {
     const html = htmlParser(CONFIG.htmlPath);
     const { data: participants } = eventData.find((e) => e.EventName === CONFIG.allParticipationEventName) ?? { data: [] };
     if (participants.length === 0) return console.error('Participants are empty'.red.bold);
@@ -72,13 +72,13 @@ const sendMailInvidualHandler = async (eventData: Event[]) => {
 
         eventData.forEach((currentEvent) => {
             // Check if participation certificate is there
-            if (currentEvent.EventName === CONFIG.allParticipationEventName && !CONFIG.hasParticipantionCertificate) return;
+            if (currentEvent.EventName === CONFIG.allParticipationEventName && !CONFIG.hasParticipationCertificate) return;
 
             // Check if participant is part of current event
             const inCurrentEvent = currentEvent.data.find((person) => person.MAIL === participant.MAIL);
             if (!inCurrentEvent) return;
 
-            // If participant is in current event, then attach the certficate
+            // If participant is in current event, then attach the certificate
             const tempPath = `${currentEvent.DataDirectoryPath}/${email}.${currentEvent.FileType}`;
             if (!fs.existsSync(tempPath)) {
                 console.error(`${currentEvent.EventName} File Not Found at ${tempPath}`.red.bold);
@@ -191,11 +191,11 @@ async function csvParserSendIndividual() {
         console.debug(`Generated events.json at ${CONFIG.debugFolderPath}/events.json`.yellow.bold);
         fs.writeFileSync(`${CONFIG.debugFolderPath}/events.json`, JSON.stringify(eventData, null, 4));
     }
-    await sendMailInvidualHandler(eventData);
+    await sendMailIndividualHandler(eventData);
 }
 
 async function init() {
-    await MailtokenVerifed;
+    await MailTokenVerified;
     if (!showWarning(CONFIG.dataPath)) return;
     await csvParserSendIndividual();
     if (CONFIG.sendMail || CONFIG.sendDevMail) console.log('Email Sending Done'.magenta.bold);

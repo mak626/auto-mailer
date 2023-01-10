@@ -47,7 +47,7 @@ transporter.on('token', (newToken) => {
     generated = true;
 });
 
-export const MailtokenVerifed = transporter.verify();
+export const MailTokenVerified = transporter.verify();
 
 export const sendNoReplyMail = async (
     email: string | string[],
@@ -78,7 +78,7 @@ export const sendNoReplyMail = async (
         await transporter.sendMail(mailOptions);
         console.log(`✔  ${id}: Mail Has Been Send:`.green.bold, email);
     } catch (error: any) {
-        console.error(`\n❌ ${id}: Error Occured While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
+        console.error(`\n❌ ${id}: Error Occurred While Sending Mail:`.red.bold, email, `\n${error.message}`.red);
         notSend.write(`[${new Date().toLocaleTimeString()}] ${id}: Sending Mail: ${email}, ERROR: ${error.message}\n`);
     }
 };

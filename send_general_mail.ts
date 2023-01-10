@@ -7,7 +7,7 @@ import constants from './util/constants';
 import type { MailCSV } from './types/csv';
 import type { GeneralConfig } from './types/config';
 import htmlParser from './util/html_parser';
-import { sendNoReplyMail, MailtokenVerifed } from './util/mailHandler';
+import { sendNoReplyMail, MailTokenVerified } from './util/mailHandler';
 import { checkHeaders, getProperFirstName } from './util/parser';
 
 // -------------------- CONFIGURATION --------------------
@@ -38,7 +38,7 @@ const CONFIG: GeneralConfig = {
         coreTeam: false,
         lead: false,
 
-        /** Enable this to send to send mails to everying in {batchFileListLocation} */
+        /** Enable this to send to send mails to everything in {batchFileListLocation} */
         batchListParticipants: false,
     },
 };
@@ -101,7 +101,7 @@ async function csvParse() {
 }
 
 async function init() {
-    await MailtokenVerifed;
+    await MailTokenVerified;
     await csvParse();
     console.log('\nEmail Sending Done'.magenta.bold);
     process.exit(0);
