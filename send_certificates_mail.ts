@@ -11,6 +11,7 @@ import { sendNoReplyMail, MailTokenVerified } from './util/mailHandler';
 import constants from './util/constants';
 import htmlParser from './util/html_parser';
 import { checkHeaders, getProperFirstName } from './util/parser';
+import htmlAssign from './util/html_replace';
 
 // ------------------CONFIGURATION-----------------------------
 
@@ -32,7 +33,7 @@ const CONFIG: CertificateConfig = {
     allParticipationEventName: 'Participants', // Mandatory Event
 
     /**
-     * Since {Participants} event is mandatory, automailer will raise error if it could not find participant's certificates.
+     * Since {Participants} event is mandatory, auto-mailer will raise error if it could not find participant's certificates.
      * If the event does not have a participation certificate you can set {hasParticipationCertificate} to false
      */
     hasParticipationCertificate: true,
@@ -91,33 +92,27 @@ const sendMailIndividualHandler = async (eventData: Event[]) => {
         });
 
         if (CONFIG.sendMail) {
-            const call = sendNoReplyMail(
-                participant.MAIL,
-                CONFIG.subject,
-                html.replace('<#NAME>', participant.NAME.split(' ')[0]),
-                attachment,
-                id
-            );
+            const call = sendNoReplyMail(participant.MAIL, CONFIG.subject, htmlAssign(html, participant), attachment, id);
             left.push(call);
         }
         if (CONFIG.sendDevMail) {
             if (!devMail) console.error('ENV devMail not found'.red.bold);
             else {
-                const call = sendNoReplyMail(
-                    devMail,
-                    CONFIG.subject,
-                    html.replace('<#NAME>', participant.NAME.split(' ')[0]),
-                    attachment,
-                    id
-                );
+                const call = sendNoReplyMail(devMail, CONFIG.subject, htmlAssign(html, { ...participant, MAIL: devMail }), attachment, id);
                 left.push(call);
             }
         }
 
         if (CONFIG.debugMode) {
+            const htmlReplaceFields: { [field: string]: string } = {};
+            Object.keys(participant).forEach((e) => {
+                htmlReplaceFields[`<#${e}>`] = participant[e];
+            });
+
             const data = {
                 participant: participant.MAIL,
                 attachment,
+                htmlReplaceFields,
             };
             debugData.push(data);
         }
@@ -141,7 +136,7 @@ async function csvParserSendIndividual() {
             .pipe(csv())
             .on('data', (e: EventsCSV) => {
                 if (!checkHeaders(headersEvents, e)) {
-                    return console.error(`CSV headers must be: ${headersEvents.join(',')}`.red.bold);
+                    return console.error(`CSV headers must have: ${headersEvents.join(',')}`.red.bold);
                 }
                 const EventName = e.EventName.trim();
                 const CertificateName = e.CertificateName.trim();
@@ -157,6 +152,8 @@ async function csvParserSendIndividual() {
             .on('end', () => resolve(temp));
     });
 
+    let printedHeaders = false;
+
     const eventData = await Promise.all(
         eventDataCSV.map(async (eventObject) => {
             const result: Person[] = await new Promise((resolve) => {
@@ -165,7 +162,15 @@ async function csvParserSendIndividual() {
                     .pipe(csv())
                     .on('data', (e: Person) => {
                         if (!checkHeaders(headersPerson, e)) {
-                            return console.error(`CSV headers must be: ${headersPerson.join(',')}`.red.bold);
+                            return console.error(`CSV headers must have: ${headersPerson.join(',')}`.red.bold);
+                        }
+                        if (!printedHeaders) {
+                            console.log(
+                                `The params replaced in html : ${Object.keys(e)
+                                    .map((_e) => `<#${_e}>`)
+                                    .join(' ')}`.blue.bold
+                            );
+                            printedHeaders = true;
                         }
                         const email = e.MAIL.trim();
 
@@ -173,6 +178,7 @@ async function csvParserSendIndividual() {
                             console.log(`Skipping Duplicate Email: ${email}`.red.bold);
                         } else {
                             results.push({
+                                ...e,
                                 NAME: getProperFirstName(e.NAME),
                                 MAIL: email,
                             });

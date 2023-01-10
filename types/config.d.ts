@@ -17,6 +17,7 @@ export interface GeneralConfig {
     subject: string;
     attachment: Mail.Attachment[];
     batchFileListLocation: string;
+    extraHtmlReplaceFields: { [field: string]: string };
     sendMailTo: {
         dev: boolean;
         backEnd: boolean;

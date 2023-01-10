@@ -3,16 +3,18 @@
         "EventName": "Participants",
         "CertificateName": "Participation Certificate",
         "FileType": "pdf",
-        "FileName": "./data-sample/CSV/Participants.csv",
-        "DataDirectoryPath": "./data-sample/Certificates/Participants",
+        "FileName": "./data/CSV/Participants.csv",
+        "DataDirectoryPath": "./data/Certificates/Participants",
         "data": [
             {
                 "NAME": "John",
-                "MAIL": "johndoe@gmail.com"
+                "MAIL": "johndoe@gmail.com",
+                "HTML_VAR_OPTIONAL": "HTML_VAR_OPTIONAL_VALUE_0"
             },
             {
                 "NAME": "Jane",
-                "MAIL": "janedoe@gmail.com"
+                "MAIL": "janedoe@gmail.com",
+                "HTML_VAR_OPTIONAL": "HTML_VAR_OPTIONAL_VALUE_1"
             }
         ]
     },
@@ -20,8 +22,8 @@
         "EventName": "EVENT_NAME_1",
         "CertificateName": "EVENT NAME 1 Certificate",
         "FileType": "pdf",
-        "FileName": "./data-sample/CSV/EVENT_NAME_1.csv",
-        "DataDirectoryPath": "./data-sample/Certificates/EVENT_NAME_1",
+        "FileName": "./data/CSV/EVENT_NAME_1.csv",
+        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_1",
         "data": [
             {
                 "NAME": "John",
@@ -37,8 +39,8 @@
         "EventName": "EVENT_NAME_2",
         "CertificateName": "EVENT NAME 2 Certificate",
         "FileType": "img",
-        "FileName": "./data-sample/CSV/EVENT_NAME_2.csv",
-        "DataDirectoryPath": "./data-sample/Certificates/EVENT_NAME_2",
+        "FileName": "./data/CSV/EVENT_NAME_2.csv",
+        "DataDirectoryPath": "./data/Certificates/EVENT_NAME_2",
         "data": [
             {
                 "NAME": "John",

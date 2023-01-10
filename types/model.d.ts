@@ -1,6 +1,7 @@
 export interface Person {
     NAME: string;
     MAIL: string;
+    [header: string]: string;
 }
 
 export interface Event {

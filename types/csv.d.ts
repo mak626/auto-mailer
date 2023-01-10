@@ -4,11 +4,6 @@ export interface EventsCSV {
     FileType: string;
 }
 
-export interface MailCSV {
-    MAIL: string;
-    NAME: string;
-}
-
 export interface EventsCSVStream extends EventsCSV {
     FileName: string;
     DataDirectoryPath: string;

@@ -1,11 +1,11 @@
 import juice from 'juice';
 import fs from 'fs';
 
-/** @typedef {import('../types/model').Attachment} Attachement */
+/** @typedef {import('../types/model').Attachment} Attachment */
 
 /**
  * @param {string} htmlFilePath
- * @param {Attachement[]} attachment
+ * @param {Attachment[]} attachment
  *
  * Ensure src paths of image are absolute eg: ../temp/logo.png
  */

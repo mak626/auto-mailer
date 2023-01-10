@@ -4,29 +4,39 @@
         "attachment": [
             {
                 "filename": "Participation Certificate.pdf",
-                "path": "./data-sample/Certificates/Participants/johndoe@gmail.com.pdf"
+                "path": "./data/Certificates/Participants/johndoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 1 Certificate.pdf",
-                "path": "./data-sample/Certificates/EVENT_NAME_1/johndoe@gmail.com.pdf"
+                "path": "./data/Certificates/EVENT_NAME_1/johndoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 2 Certificate.img",
-                "path": "./data-sample/Certificates/EVENT_NAME_2/johndoe@gmail.com.img"
+                "path": "./data/Certificates/EVENT_NAME_2/johndoe@gmail.com.img"
             }
-        ]
+        ],
+        "htmlReplaceFields": {
+            "#NAME": "John",
+            "#MAIL": "johndoe@gmail.com",
+            "#HTML_VAR_OPTIONAL": "HTML_VAR_OPTIONAL_VALUE_0"
+        }
     },
     {
         "participant": "janedoe@gmail.com",
         "attachment": [
             {
                 "filename": "Participation Certificate.pdf",
-                "path": "./data-sample/Certificates/Participants/janedoe@gmail.com.pdf"
+                "path": "./data/Certificates/Participants/janedoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 1 Certificate.pdf",
-                "path": "./data-sample/Certificates/EVENT_NAME_1/janedoe@gmail.com.pdf"
+                "path": "./data/Certificates/EVENT_NAME_1/janedoe@gmail.com.pdf"
             }
-        ]
+        ],
+        "htmlReplaceFields": {
+            "#NAME": "Jane",
+            "#MAIL": "janedoe@gmail.com",
+            "#HTML_VAR_OPTIONAL": "HTML_VAR_OPTIONAL_VALUE_1"
+        }
     }
 ]

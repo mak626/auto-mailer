@@ -41,15 +41,13 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 - Create `temp` directory in `root`
 - Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
 - Refer `data-sample` for directory structure for certificates. Duplicate the same in `data` directory
-- All the images/pdfs in `CERTIFICATES` should be in be as `EMAIL`.`datatype`
+- All the images or pdfs in `CERTIFICATES` should have the name in format `EMAIL`.`datatype`
 - A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
-- `hasParticipantionCertificate` can be set to `true` in case participation certificates are there
-- Configure `send_certificates_events.ts`
-- Run `npm run-script send_certicate_events`
-
+- `hasParticipationCertificate` can be set to `true` in case participation certificates are there
+- Configure `send_certificates_events.ts`.
     ```javascript
     /** Generates debugging files events.json and mails.json at {debugFolderPath} */
-    debugMode: false,
+    debugMode: true,
 
     /** Generates debugging files events.json and mails.json at {debugFolderPath} */
     debugFolderPath: './data/temp',
@@ -58,21 +56,27 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
     subject: 'Email Subject Here',
     htmlPath: './temp/content.html',
 
-    /** Path where the csv and other related data is stored. Must have the same structue of {data-sample} */
+    /** Path where the csv and other related data is stored. Must have the same structure of {data-sample} */
     dataPath: './data',
 
     /** A csv {Participants.csv} is mandatory for auto-mailer to work. It is a super set of all other csv events. */
     allParticipationEventName: 'Participants', // Mandatory Event
 
     /**
-     * Since {Participants} event is mandatory, automailer will raise error if it could not find participant's certificates.
-     * If the event does not have a participation certificate you can set {hasParticipantionCertificate} to false
+     * Since {Participants} event is mandatory, auto-mailer will raise error if it could not find participant's certificates.
+     * If the event does not have a participation certificate you can set {hasParticipationCertificate} to false
      */
-    hasParticipantionCertificate: true,
+    hasParticipationCertificate: true,
 
     /** Send mail To everyone in csv */
-    sendMail: true,
+    sendMail: false,
     ```
+ - If additional params need to be replaced in html other than <#NAME>, add them as CSV headers in `participants.csv`
+    ```csv
+    NAME,MAIL,REDEEM_CODE
+    MAK,m@gmail.com,testing123
+    ```
+ - Run `npm run-script send_certificate_events`
 
 - For Testing
 
@@ -84,4 +88,4 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 
     `sendDevMail` can be set to `true` to send all mail to `DEV_MAIL`
 
-    Testing will generate `events.json` and `mails.json` at `debugFolderPath` which can be used to verify what are the attachements being sent to participants
+    Testing will generate `events.json` and `mails.json` at `debugFolderPath` which can be used to verify what are the attachments being sent to participants
