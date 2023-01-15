@@ -4,23 +4,23 @@
         "attachment": [
             {
                 "filename": "Common File 1.pdf",
-                "path": "./data/Certificates/Common/common_file_1.pdf"
+                "path": "./data-sample/Certificates/Common/common_file_1.pdf"
             },
             {
-                "filename": "Common File 1.jpg",
-                "path": "./data/Certificates/Common/common_file_2.jpg"
+                "filename": "Common File 2.jpg",
+                "path": "./data-sample/Certificates/Common/common_file_2.jpg"
             },
             {
                 "filename": "Participation Certificate.pdf",
-                "path": "./data/Certificates/Participants/johndoe@gmail.com.pdf"
+                "path": "./data-sample/Certificates/Participants/johndoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 1 Certificate.pdf",
-                "path": "./data/Certificates/EVENT_NAME_1/johndoe@gmail.com.pdf"
+                "path": "./data-sample/Certificates/EVENT_NAME_1/johndoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 2 Certificate.img",
-                "path": "./data/Certificates/EVENT_NAME_2/johndoe@gmail.com.img"
+                "path": "./data-sample/Certificates/EVENT_NAME_2/johndoe@gmail.com.img"
             }
         ],
         "htmlReplaceFields": {
@@ -34,19 +34,19 @@
         "attachment": [
             {
                 "filename": "Common File 1.pdf",
-                "path": "./data/Certificates/Common/common_file_1.pdf"
+                "path": "./data-sample/Certificates/Common/common_file_1.pdf"
             },
             {
-                "filename": "Common File 1.jpg",
-                "path": "./data/Certificates/Common/common_file_2.jpg"
+                "filename": "Common File 2.jpg",
+                "path": "./data-sample/Certificates/Common/common_file_2.jpg"
             },
             {
                 "filename": "Participation Certificate.pdf",
-                "path": "./data/Certificates/Participants/janedoe@gmail.com.pdf"
+                "path": "./data-sample/Certificates/Participants/janedoe@gmail.com.pdf"
             },
             {
                 "filename": "EVENT NAME 1 Certificate.pdf",
-                "path": "./data/Certificates/EVENT_NAME_1/janedoe@gmail.com.pdf"
+                "path": "./data-sample/Certificates/EVENT_NAME_1/janedoe@gmail.com.pdf"
             }
         ],
         "htmlReplaceFields": {
