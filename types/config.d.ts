@@ -9,6 +9,7 @@ export interface CertificateConfig {
     dataPath: string;
     allParticipationEventName: string;
     hasParticipationCertificate: boolean;
+    hasCommonFiles: boolean;
     sendMail: boolean;
 }
 

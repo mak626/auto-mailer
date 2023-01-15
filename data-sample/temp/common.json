@@ -1,0 +1,10 @@
+[
+    {
+        "filename": "Common File 1.pdf",
+        "path": "./data/Certificates/Common/common_file_1.pdf"
+    },
+    {
+        "filename": "Common File 1.jpg",
+        "path": "./data/Certificates/Common/common_file_2.jpg"
+    }
+]

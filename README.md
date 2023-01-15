@@ -31,7 +31,7 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 ### General Mail
 
 - Create `temp` directory in `root`
-- Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
+- Add a `content.html`, `content.css`, `images` in `temp` directory for the mail message.
 - Add a `batch.csv` in temp directory for list of people to sent the mail to.
 - Configure `send_general_mail.ts`
 - Run `npm run-script send_individual`
@@ -39,12 +39,14 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 ### Certificates Mail
 
 - Create `temp` directory in `root`
-- Add a `content.html`,`content.css`,`images` in `temp` directory for the mail message.
-- Refer `data-sample` for directory structure for certificates. Duplicate the same in `data` directory
+- Add a `content.html`, `content.css`, `images` in `temp` directory for the mail message.
+- Refer `data-sample` for directory structure for certificates. Duplicate the same folder as `data` directory
 - All the images or pdfs in `CERTIFICATES` should have the name in format `EMAIL`.`datatype`
 - A `Participants` event is mandatory which contains emails of all participants in `Participants.csv`
 - `hasParticipationCertificate` can be set to `true` in case participation certificates are there
+- The `Common` folder in `Certificates` contains the files that need to be attached to everyone. The file names must be mentioned in `common.csv`
 - Configure `send_certificates_events.ts`.
+
     ```javascript
     /** Generates debugging files events.json and mails.json at {debugFolderPath} */
     debugMode: true,
@@ -68,15 +70,25 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
      */
     hasParticipationCertificate: true,
 
+    /**
+     * If you have any common files that need to attached to everyone
+     * Add the files to the {Certificates/Common} folder and set {hasCommonFiles} to true
+     * The file names must be mentioned in {common.csv}
+     */
+    hasCommonFiles: true,
+
     /** Send mail To everyone in csv */
     sendMail: false,
     ```
- - If additional params need to be replaced in html other than <#NAME>, add them as CSV headers in `participants.csv`
+
+- If additional params need to be replaced in html other than <#NAME>, add them as CSV headers in `participants.csv`
+
     ```csv
     NAME,MAIL,REDEEM_CODE
     MAK,m@gmail.com,testing123
     ```
- - Run `npm run-script send_certificate_events`
+
+- Run `npm run-script send_certificate_events`
 
 - For Testing
 

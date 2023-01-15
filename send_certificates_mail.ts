@@ -5,7 +5,7 @@ import rl from 'readline-sync';
 import 'colors';
 import type Mail from 'nodemailer/lib/mailer';
 import type { Event, Person } from './types/model';
-import type { EventsCSV, EventsCSVStream } from './types/csv';
+import type { CommonCSV, EventsCSV, EventsCSVStream } from './types/csv';
 import type { CertificateConfig } from './types/config';
 import { sendNoReplyMail, MailTokenVerified } from './util/mailHandler';
 import constants from './util/constants';
@@ -38,6 +38,13 @@ const CONFIG: CertificateConfig = {
      */
     hasParticipationCertificate: true,
 
+    /**
+     * If you have any common files that need to attached to everyone
+     * Add the files to the {Certificates/Common} folder and set {hasCommonFiles} to true
+     * The file names must be mentioned in {common.csv}
+     */
+    hasCommonFiles: true,
+
     /** Send mail To everyone in csv */
     sendMail: false,
 };
@@ -55,7 +62,7 @@ const showWarning = (batchFileListLocation: string) => {
     return true;
 };
 
-const sendMailIndividualHandler = async (eventData: Event[]) => {
+const sendMailIndividualHandler = async (eventData: Event[], commonData: Mail.Attachment[]) => {
     const html = htmlParser(CONFIG.htmlPath);
     const { data: participants } = eventData.find((e) => e.EventName === CONFIG.allParticipationEventName) ?? { data: [] };
     if (participants.length === 0) return console.error('Participants are empty'.red.bold);
@@ -67,7 +74,7 @@ const sendMailIndividualHandler = async (eventData: Event[]) => {
     for (const participant of participants) {
         const id = ++index;
         const { NAME: name, MAIL: email } = participant;
-        const attachment: Mail.Attachment[] = [];
+        const attachment: Mail.Attachment[] = [...(CONFIG.hasCommonFiles ? commonData : [])];
 
         console.log(`${CONFIG.debugMode ? '\n' : ''}${id}: Processing mail`.blue.bold, `${name} : ${participant.MAIL}`);
 
@@ -127,6 +134,7 @@ const sendMailIndividualHandler = async (eventData: Event[]) => {
 
 async function csvParserSendIndividual() {
     const headersEvents = ['EventName', 'CertificateName', 'FileType'];
+    const headersCommon = ['FileName', 'CertificateName', 'FileType'];
     const headersPerson = ['NAME', 'MAIL'];
 
     const eventDataCSV: EventsCSVStream[] = await new Promise((resolve) => {
@@ -136,7 +144,7 @@ async function csvParserSendIndividual() {
             .pipe(csv())
             .on('data', (e: EventsCSV) => {
                 if (!checkHeaders(headersEvents, e)) {
-                    return console.error(`CSV headers must have: ${headersEvents.join(',')}`.red.bold);
+                    return console.error(`events.csv headers must have: ${headersEvents.join(',')}`.red.bold);
                 }
                 const EventName = e.EventName.trim();
                 const CertificateName = e.CertificateName.trim();
@@ -162,7 +170,7 @@ async function csvParserSendIndividual() {
                     .pipe(csv())
                     .on('data', (e: Person) => {
                         if (!checkHeaders(headersPerson, e)) {
-                            return console.error(`CSV headers must have: ${headersPerson.join(',')}`.red.bold);
+                            return console.error(`${eventObject.FileName} headers must have: ${headersPerson.join(',')}`.red.bold);
                         }
                         if (!printedHeaders) {
                             console.log(
@@ -193,11 +201,46 @@ async function csvParserSendIndividual() {
         })
     );
 
-    if (CONFIG.debugMode) {
-        console.debug(`Generated events.json at ${CONFIG.debugFolderPath}/events.json`.yellow.bold);
-        fs.writeFileSync(`${CONFIG.debugFolderPath}/events.json`, JSON.stringify(eventData, null, 4));
+    let commonData: Mail.Attachment[] = [];
+
+    if (CONFIG.hasCommonFiles) {
+        commonData = await new Promise((resolve) => {
+            const temp: Mail.Attachment[] = [];
+            fs.createReadStream(`${CONFIG.dataPath}/common.csv`)
+                .pipe(csv())
+                .on('data', (e: CommonCSV) => {
+                    if (!checkHeaders(headersCommon, e)) {
+                        return console.error(`common.csv headers must have: ${headersCommon.join(',')}`.red.bold);
+                    }
+                    const fileName = e.FileName.trim();
+                    const fileType = e.FileType.trim();
+                    const certificateName = e.CertificateName.trim();
+                    const path = `${CONFIG.dataPath}/Certificates/Common/${fileName}.${fileType}`;
+
+                    if (!fs.existsSync(path)) {
+                        console.error(`Common File: ${fileName} File Not Found at ${path}`.red.bold);
+                    } else {
+                        temp.push({
+                            filename: `${certificateName}.${fileType}`,
+                            path,
+                        });
+                    }
+                })
+                .on('end', () => resolve(temp));
+        });
     }
-    await sendMailIndividualHandler(eventData);
+
+    if (commonData.length > 0 && CONFIG.hasCommonFiles) {
+        console.log(`Added ${commonData.length} common attachments to all the mails`.blue.bold);
+    }
+
+    if (CONFIG.debugMode) {
+        fs.writeFileSync(`${CONFIG.debugFolderPath}/events.json`, JSON.stringify(eventData, null, 4));
+        fs.writeFileSync(`${CONFIG.debugFolderPath}/common.json`, JSON.stringify(commonData, null, 4));
+        console.debug(`Generated events.json at ${CONFIG.debugFolderPath}/events.json`.yellow.bold);
+        console.debug(`Generated common.json at ${CONFIG.debugFolderPath}/common.json`.yellow.bold);
+    }
+    await sendMailIndividualHandler(eventData, commonData);
 }
 
 async function init() {
