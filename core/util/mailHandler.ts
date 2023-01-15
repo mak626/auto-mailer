@@ -7,8 +7,8 @@ import fs from 'fs';
 import nodemailer from 'nodemailer';
 
 import type Mail from 'nodemailer/lib/mailer';
-import token from '../assets/tokens/mail.json';
-import webToken from '../assets/tokens/client.json';
+import token from '../../assets/tokens/mail.json';
+import webToken from '../../assets/tokens/client.json';
 import constants from './constants';
 config();
 const { client_id, client_secret } = webToken.web;
