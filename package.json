@@ -1,12 +1,12 @@
 {
   "name": "mail-auto-mailer",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Automates Mass Mailing (Certificate generation)",
   "main": "send_general_mail.ts",
   "scripts": {
     "send_individual": "ts-node send_general_mail.ts",
     "send_certificate_events": "ts-node send_certificates_mail.ts",
-    "generate-token": "ts-node util/token_generator_manual.ts"
+    "generate-token": "ts-node core/util/token_generator_manual.ts"
   },
   "repository": {
     "type": "git",
