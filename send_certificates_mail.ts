@@ -20,7 +20,7 @@ const CONFIG: CertificateConfig = {
     debugMode: true,
 
     /** Generates debugging files events.json and mails.json at {debugFolderPath} */
-    debugFolderPath: './data/temp',
+    debugFolderPath: './data/debug',
 
     sendDevMail: false,
     subject: 'Email Subject Here',

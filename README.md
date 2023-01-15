@@ -52,7 +52,7 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
     debugMode: true,
 
     /** Generates debugging files events.json and mails.json at {debugFolderPath} */
-    debugFolderPath: './data/temp',
+    debugFolderPath: './data/debug',
 
     sendDevMail: false,
     subject: 'Email Subject Here',
@@ -94,10 +94,13 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 
     ```javascript
     debugMode = true;
-    debugFolderPath = './data/temp';
+    debugFolderPath = './data/debug';
     sendDevMail = false;
     ```
 
     `sendDevMail` can be set to `true` to send all mail to `DEV_MAIL`
 
-    Testing will generate `events.json` and `mails.json` at `debugFolderPath` which can be used to verify what are the attachments being sent to participants
+    Testing will generate following files at `debugFolderPath` can be used to verify what are the attachments being sent to participants.
+  - `events.json` : Info about the various events
+  - `common.json` : Info about the common files attached to every participant
+  - `mails.json` : (Most useful for debugging) Info about what is being sent to each participant
