@@ -4,7 +4,7 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 
 ## Pre Config Files
 
-- `./assets/tokens/client.json`
+- `./assets/tokens/client.json` : Firebase project credentials. Ensure GMAIL Api is enabled.
 - `./assets/tokens/mail.json` (Can be generated using `npm run generate-token`)
 
 ## .env Config
@@ -15,14 +15,18 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 - `GOOGLE_USER`=serverEmailID
 - `DEV_MAIL`=developerEmail
 - `DEV_NAME`=developerName
-- `BACKEND`=backendEmail
-- `LEAD_MAIL`=leadEmail
-- `LEAD_NAME`=leadName
-- `CORE_TEAM`=coreTeamEmail
-- `IPHONE_MAIL`=iphoneUserEmail
-- `IPHONE_NAME`=iphoneUserName
+- The following are for GDSC MBCET Testing mails. U can substitute your own mails here.
+  - `BACKEND`=backendEmail
+  - `LEAD_MAIL`=leadEmail
+  - `LEAD_NAME`=leadName
+  - `CORE_TEAM`=coreTeamEmail
+  - `IPHONE_MAIL`=iphoneUserEmail
+  - `IPHONE_NAME`=iphoneUserName
 
 ## Usage
+
+### Clone the repo
+- `git clone https://github.com/mak626/revanced.git`
 
 ### Installation
 
