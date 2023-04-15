@@ -9,8 +9,6 @@ Parses data in events csv, matches and verifies it to the corresponding pdf, the
 
 ## .env Config
 
-[Download](https://drive.google.com/drive/folders/1EvwqmuNksuRUwWCN28FU10LeqhgvOyp7?usp=sharing).
-
 - `CLIENT_NAME`=serverEmailUsername
 - `GOOGLE_USER`=serverEmailID
 - `DEV_MAIL`=developerEmail
